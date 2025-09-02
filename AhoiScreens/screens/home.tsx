@@ -10,6 +10,7 @@ import {
   Platform,
   Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Svg, Path, G } from 'react-native-svg';
 
 // Note: Using SVG components instead of localhost images for better compatibility
@@ -126,8 +127,7 @@ interface HomeScreenProps {
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const handleRequestPress = () => {
-    // Navigate to request screen when available
-    console.log('Request button pressed');
+    navigation.navigate('AllRequests');
   };
 
   const handleViewFilledHome = () => {
@@ -135,6 +135,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     if (navigation) {
       navigation.navigate('HomeFilled');
     }
+  };
+
+  const handleViewReceipt = () => {
+    navigation.navigate('DownloadReceipt');
+  };
+
+  const handleViewInvoice = () => {
+    navigation.navigate('Invoice');
   };
 
   const handleTabPress = (tabName: string) => {
@@ -193,6 +201,18 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.viewFilledButton} onPress={handleViewFilledHome}>
               <Text style={styles.viewFilledButtonText}>View Filled Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={[styles.viewFilledButton, { marginTop: 10 }]} 
+              onPress={() => navigation.navigate('DownloadReceipt')}
+            >
+              <Text style={styles.viewFilledButtonText}>View Receipt</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={[styles.viewFilledButton, { marginTop: 10 }]} 
+              onPress={() => navigation.navigate('Invoice')}
+            >
+              <Text style={styles.viewFilledButtonText}>View Invoice</Text>
             </TouchableOpacity>
           </View>
         </View>

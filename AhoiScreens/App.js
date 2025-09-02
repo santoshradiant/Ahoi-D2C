@@ -8,6 +8,9 @@ import SignUp from './screens/signup';
 import HomeScreen from './screens/home';
 import HomeFilledScreen from './screens/homefilled';
 import PaymentsScreen from './screens/payments';
+import DownloadReceipt from './screens/downloadreciept';
+import Invoice from './screens/invoice';
+import AllRequests from './screens/AllRequests';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Home"
+        initialRouteName="SignIn"
         screenOptions={{
           headerShown: false,
         }}
@@ -25,6 +28,21 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeFilled" component={HomeFilledScreen} />
         <Stack.Screen name="Payments" component={PaymentsScreen} />
+        <Stack.Screen 
+          name="DownloadReceipt" 
+          component={DownloadReceipt}
+          options={{
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen 
+          name="Invoice" 
+          component={Invoice}
+        />
+        <Stack.Screen 
+          name="AllRequests" 
+          component={AllRequests}
+        />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
