@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Platform,
+  Alert,
 } from 'react-native';
 import { Svg, Path, G } from 'react-native-svg';
 
@@ -139,6 +140,15 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const handleTabPress = (tabName: string) => {
     // Handle tab navigation
     console.log(`${tabName} tab pressed`);
+    console.log('Navigation object:', navigation);
+    if (tabName === 'Payments') {
+      if (navigation) {
+        console.log('Navigating to Payments...');
+        navigation.navigate('Payments');
+      } else {
+        console.log('Navigation object is undefined');
+      }
+    }
   };
 
   return (

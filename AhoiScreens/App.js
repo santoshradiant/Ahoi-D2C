@@ -7,6 +7,7 @@ import SignIn from './screens/signin';
 import SignUp from './screens/signup';
 import HomeScreen from './screens/home';
 import HomeFilledScreen from './screens/homefilled';
+import PaymentsScreen from './screens/payments';
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="SignIn"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
         }}
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeFilled" component={HomeFilledScreen} />
+        <Stack.Screen name="Payments" component={PaymentsScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
