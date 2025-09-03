@@ -212,6 +212,12 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
       // Navigate to ServiceDetails screen
       console.log('Navigating to ServiceDetails...');
       navigation.navigate('ServiceDetails');
+    } else if (tabName === 'Payments' && navigation) {
+      // Navigate to Payments screen
+      navigation.navigate('Payments');
+    } else if (tabName === 'Profile' && navigation) {
+      // Navigate to Profile screen
+      navigation.navigate('Profile');
     } else {
       console.log(`${tabName} tab pressed`);
     }

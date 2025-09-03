@@ -119,7 +119,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
 
   const handleNext = () => {
     console.log('Next pressed');
-    // navigation?.navigate('ReviewSubmit');
+    navigation?.navigate('ServiceDetailReview');
   };
 
   const handleRequest = () => {
