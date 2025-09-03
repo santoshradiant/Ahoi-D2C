@@ -14,6 +14,7 @@ import AllRequests from './screens/AllRequests';
 import ServiceDetails from './screens/servicedetails';
 import ServiceDetailsSchedule from './screens/servicedetailschedule';
 import ServiceDetailPayment from './screens/servicedetailpayment';
+import EditPayment from './screens/EditPayment';
 
 const Stack = createStackNavigator();
 
@@ -57,6 +58,14 @@ export default function App() {
         <Stack.Screen 
           name="ServiceDetailPayment" 
           component={ServiceDetailPayment}
+        />
+        <Stack.Screen 
+          name="EditPayment" 
+          component={EditPayment}
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

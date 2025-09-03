@@ -7,7 +7,21 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import AddPayment from './AddPayment';
+import EditPayment from './EditPayment';
 import { Svg, Path } from 'react-native-svg';
+
+type RootStackParamList = {
+  EditPayment: {
+    cardDetails: {
+      cardType: string;
+      cardNumber: string;
+      expiryDate: string;
+      cardholderName: string;
+    };
+  };
+};
 
 const { width } = Dimensions.get('window');
 
@@ -136,20 +150,32 @@ const PaymentCard: React.FC<PaymentCardProps> = ({
 
 // Main PaymentMethods Component
 interface PaymentMethodsProps {
-  onAddCard?: () => void;
   onEditCard?: (cardId: string) => void;
   onDeleteCard?: (cardId: string) => void;
 }
 
 const PaymentMethods: React.FC<PaymentMethodsProps> = ({
-  onAddCard,
   onEditCard,
   onDeleteCard,
 }) => {
-  const handleEditCard = (cardId: string) => {
-    if (onEditCard) {
-      onEditCard(cardId);
-    }
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [showAddPayment, setShowAddPayment] = React.useState(false);
+  const [showEditPayment, setShowEditPayment] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState<{
+    cardType: string;
+    cardNumber: string;
+    expiryDate: string;
+    cardholderName: string;
+  } | null>(null);
+
+  const handleEditCard = (cardType: string, cardNumber: string, expiryDate: string, cardholderName: string) => {
+    setSelectedCard({
+      cardType,
+      cardNumber,
+      expiryDate,
+      cardholderName
+    });
+    setShowEditPayment(true);
   };
 
   const handleDeleteCard = (cardId: string) => {
@@ -158,10 +184,14 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
     }
   };
 
-  const handleAddCard = () => {
-    if (onAddCard) {
-      onAddCard();
-    }
+  const handleAddCard = (cardDetails: {
+    cardNumber: string;
+    expiryDate: string;
+    cvv: string;
+    cardholderName: string;
+  }) => {
+    // Here you would typically send the card details to your backend
+    console.log('New card details:', cardDetails);
   };
 
   return (
@@ -172,21 +202,43 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
           maskedNumber="4242"
           expiryDate="12/25"
           isDefault={true}
-          onEdit={() => handleEditCard('visa-4242')}
+          onEdit={() => handleEditCard('Visa', '4242', '12/25', 'John Doe')}
         />
         <PaymentCard
           cardType="Mastercard"
           maskedNumber="8888"
           expiryDate="08/26"
-          onEdit={() => handleEditCard('mastercard-8888')}
+          onEdit={() => handleEditCard('Mastercard', '8888', '08/26', 'Yousri Bouhamed')}
           onDelete={() => handleDeleteCard('mastercard-8888')}
         />
       </View>
       
-      <TouchableOpacity style={styles.addCardButton} onPress={handleAddCard}>
+      <TouchableOpacity 
+        style={styles.addCardButton} 
+        onPress={() => setShowAddPayment(true)}
+      >
         <PlusIcon color="#ffffff" />
-        <Text style={styles.addCardButtonText}>Add Debit/Credit Card</Text>
+        <Text style={styles.addCardButtonText}>Add Payment Method</Text>
       </TouchableOpacity>
+
+      <AddPayment
+        isVisible={showAddPayment}
+        onClose={() => setShowAddPayment(false)}
+        onSave={handleAddCard}
+      />
+
+      {selectedCard && (
+        <EditPayment
+          isVisible={showEditPayment}
+          onClose={() => setShowEditPayment(false)}
+          onSave={(updatedDetails: { expiryDate: string; cardholderName: string }) => {
+            // Handle saving updated card details
+            console.log('Updated card details:', updatedDetails);
+            setShowEditPayment(false);
+          }}
+          cardDetails={selectedCard}
+        />
+      )}
     </View>
   );
 };
