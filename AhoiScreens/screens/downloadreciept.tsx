@@ -2,7 +2,62 @@ import * as React from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-const DownloadReceipt: React.FC = () => {
+interface DownloadReceiptProps {
+  navigation?: any;
+  route?: {
+    params?: {
+      requestId?: string;
+    };
+  };
+}
+
+const DownloadReceipt: React.FC<DownloadReceiptProps> = ({ navigation, route }) => {
+  const requestId = route?.params?.requestId || 'REQ-001';
+  
+  // Mock data - in real app, this would come from API based on requestId
+  const getRequestData = (id: string) => {
+    const requests = {
+      'REQ-001': {
+        serviceName: 'Deep Office Cleaning',
+        description: 'Complete deep cleaning of conference room including carpet cleaning and sanitization.',
+        requestor: 'James Gold',
+        dateTime: 'Today, 2:30 PM',
+        location: 'Conference Room A',
+        completionTime: '2:45 PM',
+        amount: '$150',
+        status: 'Completed'
+      },
+      'REQ-002': {
+        serviceName: 'AC Maintenance',
+        description: 'Regular maintenance and inspection of air conditioning system.',
+        requestor: 'Sarah Johnson',
+        dateTime: 'Today, 10:00 AM',
+        location: 'Office Floor 3',
+        completionTime: '11:30 AM',
+        amount: '$200',
+        status: 'Completed'
+      },
+      'REQ-003': {
+        serviceName: 'Safety Inspection',
+        description: 'Comprehensive safety inspection of main lobby area.',
+        requestor: 'Mike Wilson',
+        dateTime: 'Yesterday, 4:15 PM',
+        location: 'Main Lobby',
+        completionTime: 'Pending',
+        amount: '$100',
+        status: 'Pending'
+      }
+    };
+    return requests[id] || requests['REQ-001'];
+  };
+  
+  const requestData = getRequestData(requestId);
+  
+  const handleClose = () => {
+    if (navigation) {
+      navigation.goBack();
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -28,20 +83,20 @@ const DownloadReceipt: React.FC = () => {
               <View style={styles.serviceDetails}>
                 <View style={styles.serviceHeader}>
                   <View>
-                    <Text style={styles.serviceName}>Deep Office Cleaning</Text>
+                    <Text style={styles.serviceName}>{requestData.serviceName}</Text>
                   </View>
                   <View style={styles.serviceHeaderRight}>
-                    <View style={styles.statusBadge}>
-                      <Text style={styles.statusText}>Completed</Text>
+                    <View style={[styles.statusBadge, requestData.status === 'Pending' && styles.pendingStatusBadge]}>
+                      <Text style={[styles.statusText, requestData.status === 'Pending' && styles.pendingStatusText]}>{requestData.status}</Text>
                     </View>
-                    <Text style={styles.serviceAmount}>-$150</Text>
+                    <Text style={styles.serviceAmount}>-{requestData.amount}</Text>
                   </View>
                 </View>
               </View>
 
               {/* Service Description */}
               <Text style={styles.description}>
-                Complete deep cleaning of conference room including carpet cleaning and sanitization.
+                {requestData.description}
               </Text>
 
               {/* Service Information */}
@@ -50,7 +105,7 @@ const DownloadReceipt: React.FC = () => {
                 <View style={styles.infoRow}>
                   <View style={styles.infoItem}>
                     <Feather name="user" size={16} color="#717182" />
-                    <Text style={styles.infoText}>James Gold</Text>
+                    <Text style={styles.infoText}>{requestData.requestor}</Text>
                   </View>
                 </View>
 
@@ -58,7 +113,7 @@ const DownloadReceipt: React.FC = () => {
                 <View style={styles.infoRow}>
                   <View style={styles.infoItem}>
                     <Feather name="calendar" size={16} color="#717182" />
-                    <Text style={styles.infoText}>Today, 2:30 PM</Text>
+                    <Text style={styles.infoText}>{requestData.dateTime}</Text>
                   </View>
                 </View>
 
@@ -66,7 +121,7 @@ const DownloadReceipt: React.FC = () => {
                 <View style={styles.infoRow}>
                   <View style={styles.infoItem}>
                     <Feather name="map-pin" size={16} color="#717182" />
-                    <Text style={styles.infoText}>Conference Room A</Text>
+                    <Text style={styles.infoText}>{requestData.location}</Text>
                   </View>
                 </View>
 
@@ -74,18 +129,22 @@ const DownloadReceipt: React.FC = () => {
                 <View style={styles.infoRow}>
                   <View style={styles.infoItem}>
                     <Feather name="check-circle" size={16} color="#717182" />
-                    <Text style={styles.infoText}>Completed at: </Text>
-                    <Text style={styles.completionTime}>2:45 PM</Text>
+                    <Text style={styles.infoText}>{requestData.status === 'Completed' ? 'Completed at: ' : 'Status: '}</Text>
+                    <Text style={styles.completionTime}>{requestData.completionTime}</Text>
                   </View>
                 </View>
               </View>
 
               {/* Action Buttons */}
               <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.closeButton}>
+                <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
                   <Text style={styles.closeButtonText}>Close</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.downloadButton}>
+                <TouchableOpacity style={styles.downloadButton} onPress={() => {
+                  if (navigation) {
+                    navigation.navigate('Invoice', { requestId });
+                  }
+                }}>
                   <Text style={styles.downloadButtonText}>Download Receipt</Text>
                 </TouchableOpacity>
               </View>
@@ -174,10 +233,16 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
   },
+  pendingStatusBadge: {
+    backgroundColor: '#fff085',
+  },
   statusText: {
     color: '#008236',
     fontSize: 10.5,
     fontFamily: 'SF Pro Text',
+  },
+  pendingStatusText: {
+    color: '#a65f00',
   },
   serviceAmount: {
     fontSize: 17,

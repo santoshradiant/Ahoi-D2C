@@ -10,9 +10,11 @@ import {
   Platform,
   ScrollView,
   Dimensions,
+  Modal,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
 import PaymentMethods from './PaymentMethods';
+import TransactionDetails from './TransactionDetails';
 
 const { width, height } = Dimensions.get('window');
 
@@ -178,6 +180,7 @@ interface TransactionCardProps {
   date: string;
   amount: string;
   status: 'completed' | 'pending' | 'failed';
+  onViewDetails: () => void;
 }
 
 const TransactionCard: React.FC<TransactionCardProps> = ({
@@ -187,6 +190,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   date,
   amount,
   status,
+  onViewDetails,
 }) => {
   return (
     <View style={styles.transactionCard}>
@@ -213,7 +217,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
         </View>
       </View>
       <View style={styles.transactionButtons}>
-        <TouchableOpacity style={styles.viewDetailsButton}>
+        <TouchableOpacity style={styles.viewDetailsButton} onPress={onViewDetails}>
           <EyeIcon color="#ffffff" />
           <Text style={styles.viewDetailsButtonText}>View Details</Text>
         </TouchableOpacity>
@@ -272,6 +276,15 @@ interface PaymentsScreenProps {
 
 const PaymentsScreen: React.FC<PaymentsScreenProps> = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState('transactions');
+  const [selectedTransaction, setSelectedTransaction] = useState<null | {
+    id: string;
+    service: string;
+    amount: number;
+    status: string;
+    paymentMethod: string;
+    date: string;
+  }>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -346,14 +359,53 @@ const PaymentsScreen: React.FC<PaymentsScreenProps> = ({ navigation }) => {
                 date="2024-08-08 at 14:30"
                 amount="-$150"
                 status="completed"
+                onViewDetails={() => {
+                  setSelectedTransaction({
+                    id: 'REQ-001',
+                    service: 'Deep Office Cleaning',
+                    amount: 150,
+                    status: 'completed',
+                    paymentMethod: 'Visa •••• 4242',
+                    date: '2024-08-08 at 14:30'
+                  });
+                  setIsModalVisible(true);
+                }}
               />
               <TransactionCard
                 title="Safety Inspection"
-                requestId="REQ-001"
+                requestId="REQ-002"
                 paymentMethod="Visa •••• 4242"
                 date="2024-08-08 at 14:30"
                 amount="-$200"
                 status="completed"
+                onViewDetails={() => {
+                  setSelectedTransaction({
+                    id: 'REQ-002',
+                    service: 'Safety Inspection',
+                    amount: 200,
+                    status: 'completed',
+                    paymentMethod: 'Visa •••• 4242',
+                    date: '2024-08-08 at 14:30'
+                  });
+                  setIsModalVisible(true);
+                }}
+              />
+
+              {/* Transaction Details Modal */}
+              <TransactionDetails
+                visible={isModalVisible}
+                onClose={() => {
+                  setIsModalVisible(false);
+                  setSelectedTransaction(null);
+                }}
+                transaction={selectedTransaction || {
+                  id: '',
+                  service: '',
+                  amount: 0,
+                  status: '',
+                  paymentMethod: '',
+                  date: ''
+                }}
               />
             </View>
           ) : (

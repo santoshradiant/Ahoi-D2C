@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,10 @@ import {
   Platform,
   ScrollView,
   Dimensions,
+  Modal,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
+import { Feather } from '@expo/vector-icons';
 
 // SVG Components for icons (replacing localhost images)
 const EyeIcon = ({ color = '#ffffff' }: { color?: string }) => (
@@ -191,6 +193,43 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
   const isSmallScreen = screenWidth < 375;
   const isTablet = screenWidth > 768;
+  const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
+
+  const getRequestData = (id: string) => {
+    const requests = {
+      'REQ-001': {
+        serviceName: 'Deep Cleaning',
+        description: 'Complete deep cleaning of conference room including carpet cleaning and sanitization.',
+        requestor: 'James Gold',
+        dateTime: 'Today, 2:30 PM',
+        location: 'Conference Room A',
+        completionTime: '2:45 PM',
+        amount: '$150',
+        status: 'Completed'
+      },
+      'REQ-002': {
+        serviceName: 'AC Maintenance',
+        description: 'Regular maintenance and inspection of air conditioning system.',
+        requestor: 'Sarah Johnson',
+        dateTime: 'Today, 10:00 AM',
+        location: 'Office Floor 3',
+        completionTime: '11:30 AM',
+        amount: '$200',
+        status: 'Completed'
+      },
+      'REQ-003': {
+        serviceName: 'Safety Inspection',
+        description: 'Comprehensive safety inspection of main lobby area.',
+        requestor: 'Mike Wilson',
+        dateTime: 'Yesterday, 4:15 PM',
+        location: 'Main Lobby',
+        completionTime: 'Pending',
+        amount: '$100',
+        status: 'Pending'
+      }
+    };
+    return requests[id] || requests['REQ-001'];
+  };
 
   const handleRequestPress = () => {
     console.log('Request button pressed');
@@ -201,7 +240,7 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
   };
 
   const handleViewDetailsPress = (requestId: string) => {
-    console.log(`View Details pressed for ${requestId}`);
+    setSelectedRequest(requestId);
   };
 
   const handleTabPress = (tabName: string) => {
@@ -399,6 +438,81 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
           </View>
         </View>
       </View>
+
+      {/* Request Details Modal */}
+      <Modal
+        visible={selectedRequest !== null}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setSelectedRequest(null)}
+      >
+        <View style={modalStyles.overlay}>
+          <View style={modalStyles.modal}>
+            <View style={modalStyles.dragHandleContainer}>
+              <View style={modalStyles.dragHandle} />
+            </View>
+            <ScrollView style={modalStyles.content}>
+              {selectedRequest && (() => {
+                const requestData = getRequestData(selectedRequest);
+                return (
+                  <>
+                    <View style={modalStyles.titleSection}>
+                      <Text style={modalStyles.title}>Request Details</Text>
+                      <Text style={modalStyles.subtitle}>
+                        View detailed information about your service request.
+                      </Text>
+                    </View>
+                    <View style={modalStyles.serviceDetails}>
+                      <View style={modalStyles.serviceHeader}>
+                        <Text style={modalStyles.serviceName}>{requestData.serviceName}</Text>
+                        <View style={modalStyles.serviceHeaderRight}>
+                          <View style={[modalStyles.statusBadge, requestData.status === 'Pending' && modalStyles.pendingStatusBadge]}>
+                            <Text style={[modalStyles.statusText, requestData.status === 'Pending' && modalStyles.pendingStatusText]}>{requestData.status}</Text>
+                          </View>
+                          <Text style={modalStyles.serviceAmount}>-{requestData.amount}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <Text style={modalStyles.description}>{requestData.description}</Text>
+                    <View style={modalStyles.infoContainer}>
+                      <View style={modalStyles.infoRow}>
+                        <Feather name="user" size={16} color="#717182" />
+                        <Text style={modalStyles.infoText}>{requestData.requestor}</Text>
+                      </View>
+                      <View style={modalStyles.infoRow}>
+                        <Feather name="calendar" size={16} color="#717182" />
+                        <Text style={modalStyles.infoText}>{requestData.dateTime}</Text>
+                      </View>
+                      <View style={modalStyles.infoRow}>
+                        <Feather name="map-pin" size={16} color="#717182" />
+                        <Text style={modalStyles.infoText}>{requestData.location}</Text>
+                      </View>
+                      <View style={modalStyles.infoRow}>
+                        <Feather name="check-circle" size={16} color="#717182" />
+                        <Text style={modalStyles.infoText}>{requestData.status === 'Completed' ? 'Completed at: ' : 'Status: '}</Text>
+                        <Text style={modalStyles.completionTime}>{requestData.completionTime}</Text>
+                      </View>
+                    </View>
+                    <View style={modalStyles.buttonContainer}>
+                      <TouchableOpacity style={modalStyles.closeButton} onPress={() => setSelectedRequest(null)}>
+                        <Text style={modalStyles.closeButtonText}>Close</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={modalStyles.downloadButton} onPress={() => {
+                        if (navigation) {
+                          navigation.navigate('Invoice', { requestId: selectedRequest });
+                          setSelectedRequest(null);
+                        }
+                      }}>
+                        <Text style={modalStyles.downloadButtonText}>Download Receipt</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </>
+                );
+              })()}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -710,6 +824,150 @@ const styles = StyleSheet.create({
   },
   navTextActive: {
     color: '#ffffff',
+  },
+});
+
+const modalStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    justifyContent: 'flex-end',
+  },
+  modal: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    maxHeight: '80%',
+  },
+  dragHandleContainer: {
+    alignItems: 'center',
+    padding: 10,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    borderBottomWidth: 1,
+  },
+  dragHandle: {
+    width: 32,
+    height: 4,
+    backgroundColor: '#0B8494',
+    borderRadius: 100,
+  },
+  content: {
+    padding: 16,
+  },
+  titleSection: {
+    marginBottom: 24,
+  },
+  title: {
+    fontSize: 21,
+    fontWeight: '600',
+    color: '#1F232C',
+    marginBottom: 8,
+    fontFamily: 'SF Pro Display',
+  },
+  subtitle: {
+    fontSize: 15,
+    color: '#717182',
+    fontFamily: 'SF Pro Display',
+  },
+  serviceDetails: {
+    marginBottom: 16,
+  },
+  serviceHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  serviceName: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#1F232C',
+    fontFamily: 'SF Pro Display',
+  },
+  serviceHeaderRight: {
+    alignItems: 'flex-end',
+  },
+  statusBadge: {
+    backgroundColor: '#EAF6EB',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    marginBottom: 8,
+  },
+  pendingStatusBadge: {
+    backgroundColor: '#fff085',
+  },
+  statusText: {
+    color: '#008236',
+    fontSize: 10.5,
+    fontFamily: 'SF Pro Text',
+  },
+  pendingStatusText: {
+    color: '#a65f00',
+  },
+  serviceAmount: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#1F232C',
+  },
+  description: {
+    fontSize: 15,
+    color: '#717182',
+    marginBottom: 24,
+    fontFamily: 'SF Pro Display',
+  },
+  infoContainer: {
+    gap: 7,
+    marginBottom: 24,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 7,
+    gap: 8,
+  },
+  infoText: {
+    fontSize: 15,
+    color: '#1F232C',
+    fontFamily: 'SF Pro Display',
+  },
+  completionTime: {
+    fontSize: 15,
+    color: '#1F232C',
+    fontWeight: '500',
+    fontFamily: 'SF Pro Display',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: 7,
+    marginBottom: 20,
+  },
+  closeButton: {
+    flex: 1,
+    backgroundColor: '#F4F4F4',
+    height: 40,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#1F232C',
+    fontFamily: 'SF Pro Display',
+  },
+  downloadButton: {
+    flex: 1,
+    backgroundColor: '#0B8494',
+    height: 40,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  downloadButtonText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    fontFamily: 'SF Pro Display',
   },
 });
 

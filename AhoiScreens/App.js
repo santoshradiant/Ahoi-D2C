@@ -18,6 +18,7 @@ import ServiceDetailReview from './screens/servicedetailreview';
 import Profile from './screens/profile';
 import ManageAddress from './screens/manageaddress';
 import Terms from './screens/terms';
+import EditPayment from './screens/EditPayment';
 
 const Stack = createStackNavigator();
 
@@ -77,6 +78,14 @@ export default function App() {
         <Stack.Screen 
           name="Terms" 
           component={Terms}
+        />
+        <Stack.Screen 
+          name="EditPayment" 
+          component={EditPayment}
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />
