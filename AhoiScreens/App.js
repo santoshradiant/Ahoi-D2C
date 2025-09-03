@@ -16,6 +16,8 @@ import ServiceDetailsSchedule from './screens/servicedetailschedule';
 import ServiceDetailPayment from './screens/servicedetailpayment';
 import ServiceDetailReview from './screens/servicedetailreview';
 import Profile from './screens/profile';
+import ManageAddress from './screens/manageaddress';
+import Terms from './screens/terms';
 
 const Stack = createStackNavigator();
 
@@ -67,6 +69,14 @@ export default function App() {
         <Stack.Screen 
           name="Profile" 
           component={Profile}
+        />
+        <Stack.Screen 
+          name="ManageAddress" 
+          component={ManageAddress}
+        />
+        <Stack.Screen 
+          name="Terms" 
+          component={Terms}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

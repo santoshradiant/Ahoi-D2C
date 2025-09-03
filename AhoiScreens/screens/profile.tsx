@@ -356,7 +356,10 @@ export default function Profile({ navigation }: ProfileProps) {
                 <ChevronRightIcon />
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.menuItem}>
+              <TouchableOpacity 
+                style={styles.menuItem}
+                onPress={() => handleNavigation('ManageAddress')}
+              >
                 <View style={styles.menuItemLeft}>
                   <LocationIcon />
                   <Text style={styles.menuItemText}>Manage Addresses</Text>
@@ -370,7 +373,10 @@ export default function Profile({ navigation }: ProfileProps) {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Preferences</Text>
             <View style={styles.card}>
-              <TouchableOpacity style={styles.menuItem}>
+              <TouchableOpacity 
+                style={styles.menuItem}
+                onPress={() => handleNavigation('Terms')}
+              >
                 <View style={styles.menuItemLeft}>
                   <FileTextIcon />
                   <Text style={styles.menuItemText}>Terms & Privacy</Text>
