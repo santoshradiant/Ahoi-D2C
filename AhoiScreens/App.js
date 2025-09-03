@@ -11,6 +11,9 @@ import PaymentsScreen from './screens/payments';
 import DownloadReceipt from './screens/downloadreciept';
 import Invoice from './screens/invoice';
 import AllRequests from './screens/AllRequests';
+import ServiceDetails from './screens/servicedetails';
+import ServiceDetailsSchedule from './screens/servicedetailschedule';
+import ServiceDetailPayment from './screens/servicedetailpayment';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +45,18 @@ export default function App() {
         <Stack.Screen 
           name="AllRequests" 
           component={AllRequests}
+        />
+        <Stack.Screen 
+          name="ServiceDetails" 
+          component={ServiceDetails}
+        />
+        <Stack.Screen 
+          name="ServiceDetailsSchedule" 
+          component={ServiceDetailsSchedule}
+        />
+        <Stack.Screen 
+          name="ServiceDetailPayment" 
+          component={ServiceDetailPayment}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

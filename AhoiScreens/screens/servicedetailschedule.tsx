@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
@@ -12,10 +11,9 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import { Svg, Path, G } from 'react-native-svg';
+import { Svg, Path } from 'react-native-svg';
 
 const { width, height } = Dimensions.get('window');
-const isSmallScreen = height < 700;
 
 // Avatar component
 const Avatar = ({ size = 48 }: { size?: number }) => (
@@ -29,29 +27,31 @@ const Avatar = ({ size = 48 }: { size?: number }) => (
 );
 
 // SVG Icons
-const ChevronDownIcon = () => (
+const CalendarIcon = () => (
   <Svg width={14} height={14} viewBox="0 0 14 14" fill="none">
     <Path
-      d="M3.5 5.25L7 8.75L10.5 5.25"
-      stroke="#717182"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const LocationIcon = () => (
-  <Svg width={14} height={14} viewBox="0 0 14 14" fill="none">
-    <Path
-      d="M7 7.58333C7.96649 7.58333 8.75 6.79982 8.75 5.83333C8.75 4.86684 7.96649 4.08333 7 4.08333C6.03351 4.08333 5.25 4.86684 5.25 5.83333C5.25 6.79982 6.03351 7.58333 7 7.58333Z"
+      d="M11.0833 2.33333H2.91667C2.22631 2.33333 1.66667 2.89298 1.66667 3.58333V11.75C1.66667 12.4404 2.22631 13 2.91667 13H11.0833C11.7737 13 12.3333 12.4404 12.3333 11.75V3.58333C12.3333 2.89298 11.7737 2.33333 11.0833 2.33333Z"
       stroke="#717182"
       strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <Path
-      d="M7 1.16667C5.67392 1.16667 4.40215 1.69375 3.46447 2.63143C2.52678 3.56912 2 4.84089 2 6.16667C2 7.49244 2.52678 8.76421 3.46447 9.70189L7 13.2375L10.5355 9.70189C11.4732 8.76421 12 7.49244 12 6.16667C12 4.84089 11.4732 3.56912 10.5355 2.63143C9.59785 1.69375 8.32608 1.16667 7 1.16667Z"
+      d="M9.33333 1.16667V3.5"
+      stroke="#717182"
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M4.66667 1.16667V3.5"
+      stroke="#717182"
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M1.66667 5.83333H12.3333"
       stroke="#717182"
       strokeWidth={1.16667}
       strokeLinecap="round"
@@ -64,8 +64,8 @@ const ArrowLeftIcon = () => (
   <Svg width={16} height={16} viewBox="0 0 16 16" fill="none">
     <Path
       d="M10 12L6 8L10 4"
-      stroke="#ABB0BA"
-      strokeWidth={1.5}
+      stroke="#1F232C"
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -77,26 +77,7 @@ const ArrowRightIcon = () => (
     <Path
       d="M6 4L10 8L6 12"
       stroke="#FFFFFF"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const CameraIcon = () => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M19.25 15.75C19.25 16.2141 19.0656 16.6592 18.7374 16.9874C18.4092 17.3156 17.9641 17.5 17.5 17.5H3.5C3.03587 17.5 2.59075 17.3156 2.26256 16.9874C1.93437 16.6592 1.75 16.2141 1.75 15.75V7C1.75 6.53587 1.93437 6.09075 2.26256 5.76256C2.59075 5.43437 3.03587 5.25 3.5 5.25H6.125L7.875 3.5H13.125L14.875 5.25H17.5C17.9641 5.25 18.4092 5.43437 18.7374 5.76256C19.0656 6.09075 19.25 6.53587 19.25 7V15.75Z"
-      stroke="#1F232C"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M10.5 14C12.5711 14 14.25 12.3211 14.25 10.25C14.25 8.17893 12.5711 6.5 10.5 6.5C8.42893 6.5 6.75 8.17893 6.75 10.25C6.75 12.3211 8.42893 14 10.5 14Z"
-      stroke="#1F232C"
-      strokeWidth={1.5}
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -180,15 +161,20 @@ const ProfileIcon = () => (
   </Svg>
 );
 
-interface ServiceDetailsProps {
+interface ServiceDetailsScheduleProps {
   navigation?: any;
 }
 
-export default function ServiceDetails({ navigation }: ServiceDetailsProps) {
-  const [serviceType, setServiceType] = useState('');
-  const [location, setLocation] = useState('');
-  const [description, setDescription] = useState('');
-  const [showServiceDropdown, setShowServiceDropdown] = useState(false);
+export default function ServiceDetailsSchedule({ navigation }: ServiceDetailsScheduleProps) {
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+
+  const timeSlots = [
+    '8:00 AM', '9:00 AM', '10:00 AM',
+    '11:00 AM', '12:00 PM', '1:00 PM',
+    '2:00 PM', '3:00 PM', '4:00 PM',
+    '5:00 PM'
+  ];
 
   const handleBack = () => {
     console.log('Back pressed');
@@ -197,24 +183,21 @@ export default function ServiceDetails({ navigation }: ServiceDetailsProps) {
 
   const handleNext = () => {
     console.log('Next pressed');
-    navigation?.navigate('ServiceDetailsSchedule');
+    navigation?.navigate('ServiceDetailPayment');
   };
 
   const handleRequest = () => {
     console.log('Request pressed');
   };
 
-  const handleChooseFiles = () => {
-    console.log('Choose Files pressed');
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFDDAB" />
       
-      {/* Status Bar */}
-   
-
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Header Section */}
         <View style={styles.headerBackground}>
@@ -237,23 +220,26 @@ export default function ServiceDetails({ navigation }: ServiceDetailsProps) {
           <View style={styles.progressHeader}>
             <Text style={styles.createRequestText}>Create Request</Text>
             <View style={styles.stepIndicator}>
-              <Text style={styles.stepText}>Step 1 of 4</Text>
+              <Text style={styles.stepText}>Step 2 of 4</Text>
             </View>
           </View>
 
           {/* Step Progress */}
           <View style={styles.stepContainer}>
             <View style={styles.stepItem}>
-              <View style={[styles.stepCircle, styles.stepCircleActive]}>
-                <Text style={styles.stepNumberActive}>1</Text>
+              <View style={styles.stepCircle}>
+                <Image
+                  source={{ uri: "http://localhost:3845/assets/5c5a52f5f3638bec44c5aa43fbd9ee49a0cc7d6e.svg" }}
+                  style={styles.stepIcon}
+                />
               </View>
               <Text style={styles.stepLabel}>Service Details</Text>
             </View>
             <View style={styles.stepItem}>
-              <View style={styles.stepCircle}>
-                <Text style={styles.stepNumber}>2</Text>
+              <View style={[styles.stepCircle, styles.stepCircleActive]}>
+                <Text style={styles.stepNumberActive}>2</Text>
               </View>
-              <Text style={styles.stepLabelInactive}>Schedule</Text>
+              <Text style={styles.stepLabel}>Schedule</Text>
             </View>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
@@ -278,64 +264,52 @@ export default function ServiceDetails({ navigation }: ServiceDetailsProps) {
         {/* Form Content */}
         <View style={styles.formContainer}>
           <View style={styles.formHeader}>
-            <Text style={styles.formTitle}>Service Request</Text>
-            <Text style={styles.formSubtitle}>Tell us what service you need and where</Text>
+            <Text style={styles.formTitle}>Schedule Service</Text>
+            <Text style={styles.formSubtitle}>When would you like us to help?</Text>
           </View>
 
           <View style={styles.formFields}>
-            {/* Service Type */}
+            {/* Preferred Date */}
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldLabel}>Service Type</Text>
-              <TouchableOpacity 
-                style={styles.dropdown}
-                onPress={() => setShowServiceDropdown(!showServiceDropdown)}
-              >
-                <Text style={styles.dropdownPlaceholder}>Choose a service type</Text>
-                <ChevronDownIcon />
-              </TouchableOpacity>
-            </View>
-
-            {/* Location */}
-            <View style={styles.fieldContainer}>
-              <Text style={styles.fieldLabel}>Location</Text>
-              <View style={styles.inputContainer}>
-                <View style={styles.inputIconContainer}>
-                  <LocationIcon />
+              <Text style={styles.fieldLabel}>Preferred Date</Text>
+              <View style={styles.dateInputContainer}>
+                <View style={styles.dateIconContainer}>
+                  <CalendarIcon />
                 </View>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="e.g., Conference Room A, Floor 3"
-                  placeholderTextColor="#717182"
-                  value={location}
-                  onChangeText={setLocation}
-                />
-              </View>
-            </View>
-
-            {/* Description */}
-            <View style={styles.fieldContainer}>
-              <Text style={styles.fieldLabel}>Description</Text>
-              <TextInput
-                style={styles.textArea}
-                placeholder="Please describe the issue or service needed..."
-                placeholderTextColor="#717182"
-                value={description}
-                onChangeText={setDescription}
-                multiline
-                numberOfLines={3}
-                textAlignVertical="top"
-              />
-            </View>
-
-            {/* Attachments */}
-            <View style={styles.attachmentsContainer}>
-              <Text style={styles.fieldLabel}>Attachments (Optional)</Text>
-              <View style={styles.uploadArea}>
-                <Text style={styles.uploadText}>Add photos or documents (max 5 files, 10MB each)</Text>
-                <TouchableOpacity style={styles.chooseFilesButton} onPress={handleChooseFiles}>
-                  <CameraIcon />
-                  <Text style={styles.chooseFilesText}>Choose Files</Text>
+                <View style={styles.dateInput}>
+                  <Text style={styles.datePlaceholder}>dd/mm/yyyy</Text>
+                </View>
+                <TouchableOpacity style={styles.calendarButton}>
+                  <Image
+                    source={{ uri: "http://localhost:3845/assets/128ec7b23035654077fa1c5fe25a68ba52552863.svg" }}
+                    style={styles.calendarIcon}
+                  />
                 </TouchableOpacity>
+              </View>
+              <Text style={styles.dateHint}>Leave blank if you're flexible with timing</Text>
+            </View>
+
+            {/* Preferred Time */}
+            <View style={styles.fieldContainer}>
+              <Text style={styles.fieldLabel}>Preferred Time</Text>
+              <View style={styles.timeGrid}>
+                {timeSlots.map((time, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={[
+                      styles.timeSlot,
+                      selectedTime === time && styles.timeSlotSelected
+                    ]}
+                    onPress={() => handleTimeSelect(time)}
+                  >
+                    <Text style={[
+                      styles.timeSlotText,
+                      selectedTime === time && styles.timeSlotTextSelected
+                    ]}>
+                      {time}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
               </View>
             </View>
           </View>
@@ -381,25 +355,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-  },
-  statusBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 23,
-    height: 44,
-    backgroundColor: '#FFFFFF',
-  },
-  timeText: {
-    fontFamily: Platform.OS === 'ios' ? 'Urbanist-SemiBold' : 'sans-serif',
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1F232C',
-    letterSpacing: 0.2,
-  },
-  statusIcons: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   scrollView: {
     flex: 1,
@@ -518,6 +473,10 @@ const styles = StyleSheet.create({
   stepCircleActive: {
     backgroundColor: '#030213',
   },
+  stepIcon: {
+    width: 21,
+    height: 21,
+  },
   stepNumber: {
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
     fontSize: 13,
@@ -557,7 +516,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: '100%',
-    width: '25%',
+    width: '50%', // 50% for step 2 of 4
     backgroundColor: '#030213',
   },
   formContainer: {
@@ -565,7 +524,7 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   formHeader: {
-    marginBottom: 32,
+    marginBottom: 21,
     gap: 7,
   },
   formTitle: {
@@ -595,24 +554,7 @@ const styles = StyleSheet.create({
     color: '#0A0A0A',
     lineHeight: 18,
   },
-  dropdown: {
-    backgroundColor: '#F4F4F4',
-    height: 31.5,
-    borderRadius: 6.75,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 11.5,
-    paddingVertical: 8,
-  },
-  dropdownPlaceholder: {
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#717182',
-    lineHeight: 18,
-  },
-  inputContainer: {
+  dateInputContainer: {
     backgroundColor: '#F4F4F4',
     height: 31.5,
     borderRadius: 6.75,
@@ -622,7 +564,7 @@ const styles = StyleSheet.create({
     paddingRight: 11.5,
     position: 'relative',
   },
-  inputIconContainer: {
+  dateIconContainer: {
     position: 'absolute',
     left: 10.5,
     width: 14,
@@ -630,69 +572,67 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textInput: {
+  dateInput: {
     flex: 1,
+    paddingVertical: 4.5,
+  },
+  datePlaceholder: {
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
     fontSize: 15,
     fontWeight: '500',
-    color: '#000000',
+    color: '#717182',
     lineHeight: 18,
-    paddingVertical: 0,
   },
-  textArea: {
-    backgroundColor: '#F4F4F4',
-    height: 58,
-    borderRadius: 6.75,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#000000',
-    lineHeight: 18,
-    paddingHorizontal: 11.5,
-    paddingTop: 8,
-    paddingBottom: 8,
-  },
-  attachmentsContainer: {
-    gap: 7,
-    paddingTop: 15,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.1)',
-  },
-  uploadArea: {
-    borderWidth: 2,
-    borderColor: 'rgba(0,0,0,0.1)',
-    borderStyle: 'dashed',
-    borderRadius: 8.75,
-    height: 107,
+  calendarButton: {
+    width: 18,
+    height: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 16,
-    paddingHorizontal: 16,
   },
-  uploadText: {
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: 13,
-    fontWeight: '400',
-    color: '#717182',
-    lineHeight: 14.3,
-    textAlign: 'center',
+  calendarIcon: {
+    width: 14,
+    height: 13.125,
   },
-  chooseFilesButton: {
-    backgroundColor: '#F4F4F4',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    height: 32,
-  },
-  chooseFilesText: {
+  dateHint: {
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
     fontSize: 12,
     fontWeight: '400',
-    color: '#1F232C',
+    color: '#717182',
     lineHeight: 12,
+  },
+  timeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 9,
+    marginTop: 7,
+  },
+  timeSlot: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)',
+    borderRadius: 6.75,
+    height: 35,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: '30%',
+    flexGrow: 1,
+    maxWidth: '32%',
+  },
+  timeSlotSelected: {
+    backgroundColor: '#0B8494',
+    borderColor: '#0B8494',
+  },
+  timeSlotText: {
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
+    fontSize: 13,
+    fontWeight: '400',
+    color: '#0A0A0A',
+    lineHeight: 14.3,
+    textAlign: 'center',
+  },
+  timeSlotTextSelected: {
+    color: '#FFFFFF',
   },
   bottomButtonsContainer: {
     backgroundColor: '#FFFFFF',
@@ -718,10 +658,10 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: 13,
+    fontSize: 17,
     fontWeight: '600',
-    color: '#ABB0BA',
-    lineHeight: 14.3,
+    color: '#1F232C',
+    lineHeight: 22.1,
   },
   nextButton: {
     flex: 1,

@@ -156,6 +156,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       } else {
         console.log('Navigation object is undefined');
       }
+    } else if (tabName === 'Request') {
+      if (navigation) {
+        console.log('Navigating to ServiceDetails...');
+        navigation.navigate('ServiceDetails');
+      } else {
+        console.log('Navigation object is undefined');
+      }
     }
   };
 

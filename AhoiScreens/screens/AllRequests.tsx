@@ -14,6 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   ServiceDetails: { requestId: string };
+  
   AllRequests: undefined;
 };
 

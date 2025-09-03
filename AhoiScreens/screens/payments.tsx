@@ -12,6 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
+import PaymentMethods from './PaymentMethods';
 
 const { width, height } = Dimensions.get('window');
 
@@ -246,7 +247,10 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ navigation }) => {
         <HomeIcon active={false} />
         <Text style={[styles.navButtonText, { color: '#c7cad1' }]}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton}>
+      <TouchableOpacity 
+        style={styles.navButton}
+        onPress={() => handleNavigation('ServiceDetails')}
+      >
         <RequestIcon active={false} />
         <Text style={[styles.navButtonText, { color: '#c7cad1' }]}>Request</Text>
       </TouchableOpacity>
@@ -332,25 +336,42 @@ const PaymentsScreen: React.FC<PaymentsScreenProps> = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          {/* Transaction List */}
-          <View style={styles.transactionsList}>
-            <TransactionCard
-              title="Deep Office Cleaning"
-              requestId="REQ-001"
-              paymentMethod="Visa •••• 4242"
-              date="2024-08-08 at 14:30"
-              amount="-$150"
-              status="completed"
+          {/* Content based on active tab */}
+          {activeTab === 'transactions' ? (
+            <View style={styles.transactionsList}>
+              <TransactionCard
+                title="Deep Office Cleaning"
+                requestId="REQ-001"
+                paymentMethod="Visa •••• 4242"
+                date="2024-08-08 at 14:30"
+                amount="-$150"
+                status="completed"
+              />
+              <TransactionCard
+                title="Safety Inspection"
+                requestId="REQ-001"
+                paymentMethod="Visa •••• 4242"
+                date="2024-08-08 at 14:30"
+                amount="-$200"
+                status="completed"
+              />
+            </View>
+          ) : (
+            <PaymentMethods
+              onAddCard={() => {
+                console.log('Add card pressed');
+                // Handle add card navigation or modal
+              }}
+              onEditCard={(cardId) => {
+                console.log('Edit card pressed:', cardId);
+                // Handle edit card navigation or modal
+              }}
+              onDeleteCard={(cardId) => {
+                console.log('Delete card pressed:', cardId);
+                // Handle delete card confirmation and API call
+              }}
             />
-            <TransactionCard
-              title="Safety Inspection"
-              requestId="REQ-001"
-              paymentMethod="Visa •••• 4242"
-              date="2024-08-08 at 14:30"
-              amount="-$200"
-              status="completed"
-            />
-          </View>
+          )}
         </View>
       </ScrollView>
 

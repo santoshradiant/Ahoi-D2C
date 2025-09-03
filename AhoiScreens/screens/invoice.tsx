@@ -160,6 +160,7 @@ const ProfileIcon = ({ color = '#c7cad1' }) => (
 interface InvoiceProps {
   navigation: {
     goBack: () => void;
+    navigate: (screen: string) => void;
   };
 }
 
@@ -200,7 +201,10 @@ const Invoice: React.FC<InvoiceProps> = ({ navigation }) => {
           <Text style={[styles.navText, styles.activeNavText]}>Home</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity 
+          style={styles.navItem}
+          onPress={() => navigation.navigate('ServiceDetails')}
+        >
           <RequestIcon />
           <Text style={styles.navText}>Request</Text>
         </TouchableOpacity>

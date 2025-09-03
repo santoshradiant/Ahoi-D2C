@@ -208,6 +208,10 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
     if (tabName === 'Home' && navigation) {
       // Navigate back to the empty home screen
       navigation.navigate('Home');
+    } else if (tabName === 'Request' && navigation) {
+      // Navigate to ServiceDetails screen
+      console.log('Navigating to ServiceDetails...');
+      navigation.navigate('ServiceDetails');
     } else {
       console.log(`${tabName} tab pressed`);
     }
