@@ -123,7 +123,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
   };
 
   const handleRequest = () => {
-    console.log('Request pressed');
+    navigation?.navigate('ServiceDetails');
   };
 
   const handlePaymentSelect = (method: string) => {
@@ -359,25 +359,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
         </TouchableOpacity>
       </View>
 
-      {/* Bottom Tab Navigation */}
-      <View style={styles.bottomTabContainer}>
-        <TouchableOpacity style={styles.tabItem}>
-          <HomeIcon />
-          <Text style={styles.tabLabel}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.tabItem, styles.tabItemActive]}>
-          <RequestIcon />
-          <Text style={styles.tabLabelActive}>Request</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <PaymentsIcon />
-          <Text style={styles.tabLabel}>Payments</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <ProfileIcon />
-          <Text style={styles.tabLabel}>Profile</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Bottom Navigation is now handled by the tab navigator */}
     </SafeAreaView>
   );
 }
@@ -733,43 +715,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     lineHeight: 22.1,
   },
-  bottomTabContainer: {
-    backgroundColor: '#0B8494',
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    height: 92,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.1)',
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 3.5,
-    paddingHorizontal: 7,
-    paddingVertical: 7,
-    borderRadius: 8.75,
-  },
-  tabItemActive: {
-    gap: 2.45,
-  },
-  tabLabel: {
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#C7CAD1',
-    lineHeight: 18,
-    textAlign: 'center',
-  },
-  tabLabelActive: {
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#FFFFFF',
-    lineHeight: 18,
-    textAlign: 'center',
-  },
+  // Bottom navigation styles removed - now handled by tab navigator
   // Preferred Card Section Styles
   preferredCardSection: {
     marginTop: 14,

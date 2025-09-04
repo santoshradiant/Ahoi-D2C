@@ -100,90 +100,7 @@ const AvatarPlaceholder = () => (
   </View>
 );
 
-// Navigation SVG Icons
-const HomeIcon = ({ color = '#ffffff' }: { color?: string }) => (
-  <Svg width={23.1} height={23.1} viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
-      stroke={color}
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill={color}
-    />
-    <Path
-      d="M9 22V12H15V22"
-      stroke={color}
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const RequestIcon = ({ color = '#c7cad1' }: { color?: string }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M10.5 19.25C15.3325 19.25 19.25 15.3325 19.25 10.5C19.25 5.66751 15.3325 1.75 10.5 1.75C5.66751 1.75 1.75 5.66751 1.75 10.5C1.75 15.3325 5.66751 19.25 10.5 19.25Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M10.5 7V14"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M7 10.5H14"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const PaymentsIcon = ({ color = '#c7cad1' }: { color?: string }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M18.375 3.9375H2.625C2.17772 3.9375 1.8125 4.30272 1.8125 4.75V16.25C1.8125 16.6973 2.17772 17.0625 2.625 17.0625H18.375C18.8223 17.0625 19.1875 16.6973 19.1875 16.25V4.75C19.1875 4.30272 18.8223 3.9375 18.375 3.9375Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M1.8125 8.75H19.1875"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const ProfileIcon = ({ color = '#c7cad1' }: { color?: string }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M17.5 18.375V16.625C17.5 15.7962 17.1708 15.0013 16.5847 14.4153C15.9987 13.8292 15.2038 13.5 14.375 13.5H6.625C5.79616 13.5 5.00134 13.8292 4.41529 14.4153C3.82924 15.0013 3.5 15.7962 3.5 16.625V18.375"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M10.5 10C12.2259 10 13.625 8.60089 13.625 6.875C13.625 5.14911 12.2259 3.75 10.5 3.75C8.77411 3.75 7.375 5.14911 7.375 6.875C7.375 8.60089 8.77411 10 10.5 10Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
+// Navigation icons are now handled by the tab navigator
 
 interface HomeFilledScreenProps {
   navigation?: any;
@@ -196,7 +113,7 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
 
   const getRequestData = (id: string) => {
-    const requests = {
+    const requests: { [key: string]: any } = {
       'REQ-001': {
         serviceName: 'Deep Cleaning',
         description: 'Complete deep cleaning of conference room including carpet cleaning and sanitization.',
@@ -232,35 +149,23 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
   };
 
   const handleRequestPress = () => {
-    console.log('Request button pressed');
+    if (navigation) {
+      navigation.navigate('ServiceRequestStack');
+    }
   };
 
   const handleViewAllPress = () => {
-    console.log('View All pressed');
+    if (navigation) {
+      navigation.navigate('AllRequests');
+    }
   };
 
   const handleViewDetailsPress = (requestId: string) => {
     setSelectedRequest(requestId);
   };
 
-  const handleTabPress = (tabName: string) => {
-    if (tabName === 'Home' && navigation) {
-      // Navigate back to the empty home screen
-      navigation.navigate('Home');
-    } else if (tabName === 'Request' && navigation) {
-      // Navigate to ServiceDetails screen
-      console.log('Navigating to ServiceDetails...');
-      navigation.navigate('ServiceDetails');
-    } else if (tabName === 'Payments' && navigation) {
-      // Navigate to Payments screen
-      navigation.navigate('Payments');
-    } else if (tabName === 'Profile' && navigation) {
-      // Navigate to Profile screen
-      navigation.navigate('Profile');
-    } else {
-      console.log(`${tabName} tab pressed`);
-    }
-  };
+  // Tab navigation is now handled by the tab navigator
+  // Individual tab press handlers are no longer needed
 
   return (
     <SafeAreaView style={styles.container}>
@@ -401,42 +306,7 @@ const HomeFilledScreen: React.FC<HomeFilledScreenProps> = ({ navigation }) => {
           </View>
         </ScrollView>
 
-        {/* Bottom Navigation */}
-        <View style={styles.bottomNavigation}>
-          <View style={styles.bottomNavContainer}>
-            <TouchableOpacity 
-              style={styles.navItem} 
-              onPress={() => handleTabPress('Home')}
-            >
-              <HomeIcon color="#ffffff" />
-              <Text style={[styles.navText, styles.navTextActive]}>Home</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={styles.navItem} 
-              onPress={() => handleTabPress('Request')}
-            >
-              <RequestIcon color="#c7cad1" />
-              <Text style={styles.navText}>Request</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={styles.navItem} 
-              onPress={() => handleTabPress('Payments')}
-            >
-              <PaymentsIcon color="#c7cad1" />
-              <Text style={styles.navText}>Payments</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={styles.navItem} 
-              onPress={() => handleTabPress('Profile')}
-            >
-              <ProfileIcon color="#c7cad1" />
-              <Text style={styles.navText}>Profile</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        {/* Bottom Navigation is now handled by the tab navigator */}
       </View>
 
       {/* Request Details Modal */}
@@ -791,40 +661,7 @@ const styles = StyleSheet.create({
     lineHeight: 14.3,
   },
 
-  // Bottom Navigation Styles
-  bottomNavigation: {
-    backgroundColor: '#0b8494',
-    paddingHorizontal: isSmallScreen ? 12 : 16,
-    paddingVertical: 8,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.1)',
-    height: isSmallScreen ? 80 : 92,
-  },
-  bottomNavContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 13.92,
-  },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 7,
-    paddingHorizontal: 7,
-    borderRadius: 8.75,
-    gap: 2.45,
-  },
-  navText: {
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'sans-serif',
-    fontSize: isSmallScreen ? 13 : 15,
-    fontWeight: '500',
-    color: '#c7cad1',
-    lineHeight: isSmallScreen ? 16 : 18,
-    textAlign: 'center',
-  },
-  navTextActive: {
-    color: '#ffffff',
-  },
+  // Bottom Navigation styles removed - now handled by tab navigator
 });
 
 const modalStyles = StyleSheet.create({

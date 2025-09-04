@@ -230,45 +230,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   );
 };
 
-// Bottom Navigation Component
-interface BottomNavigationProps {
-  navigation?: any;
-}
-
-const BottomNavigation: React.FC<BottomNavigationProps> = ({ navigation }) => {
-  const handleNavigation = (screen: string) => {
-    if (navigation) {
-      navigation.navigate(screen);
-    }
-  };
-
-  return (
-    <View style={styles.bottomNavigation}>
-      <TouchableOpacity 
-        style={styles.navButton}
-        onPress={() => handleNavigation('Home')}
-      >
-        <HomeIcon active={false} />
-        <Text style={[styles.navButtonText, { color: '#c7cad1' }]}>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        style={styles.navButton}
-        onPress={() => handleNavigation('ServiceDetails')}
-      >
-        <RequestIcon active={false} />
-        <Text style={[styles.navButtonText, { color: '#c7cad1' }]}>Request</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton}>
-        <PaymentsIcon active={true} />
-        <Text style={[styles.navButtonText, { color: '#ffffff' }]}>Payments</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton}>
-        <ProfileIcon active={false} />
-        <Text style={[styles.navButtonText, { color: '#c7cad1' }]}>Profile</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+// Bottom Navigation is now handled by the tab navigator
 
 interface PaymentsScreenProps {
   navigation?: any;
@@ -308,7 +270,10 @@ const PaymentsScreen: React.FC<PaymentsScreenProps> = ({ navigation }) => {
               <Text style={styles.helpText}>How can we help you today?</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.requestButton}>
+          <TouchableOpacity 
+            style={styles.requestButton}
+            onPress={() => navigation.navigate('ServiceRequestStack')}
+          >
             <Text style={styles.requestButtonText}>+ Request</Text>
           </TouchableOpacity>
         </View>
@@ -410,10 +375,6 @@ const PaymentsScreen: React.FC<PaymentsScreenProps> = ({ navigation }) => {
             </View>
           ) : (
             <PaymentMethods
-              onAddCard={() => {
-                console.log('Add card pressed');
-                // Handle add card navigation or modal
-              }}
               onEditCard={(cardId) => {
                 console.log('Edit card pressed:', cardId);
                 // Handle edit card navigation or modal
@@ -427,8 +388,7 @@ const PaymentsScreen: React.FC<PaymentsScreenProps> = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation */}
-      <BottomNavigation navigation={navigation} />
+      {/* Bottom Navigation is now handled by the tab navigator */}
     </SafeAreaView>
   );
 };
@@ -683,27 +643,5 @@ const styles = StyleSheet.create({
     color: '#1f232c',
     lineHeight: 14.3,
   },
-  bottomNavigation: {
-    backgroundColor: '#0b8494',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    height: 92,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  navButton: {
-    alignItems: 'center',
-    gap: 3.5,
-    paddingVertical: 7,
-    paddingHorizontal: 7,
-    borderRadius: 8.75,
-  },
-  navButtonText: {
-    fontSize: 15,
-    fontWeight: '500',
-    lineHeight: 18,
-  },
+  // Bottom Navigation styles removed - now handled by tab navigator
 });

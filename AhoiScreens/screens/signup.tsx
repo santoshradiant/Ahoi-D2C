@@ -11,7 +11,6 @@ import {
   Platform,
   KeyboardAvoidingView,
   ScrollView,
-  Image,
 } from 'react-native';
 import { Svg, Path, G } from 'react-native-svg';
 
@@ -135,6 +134,19 @@ const EyeIcon = ({ visible }: { visible: boolean }) => (
   </Svg>
 );
 
+const LogoIcon = () => (
+  <Svg width={64} height={64} viewBox="0 0 64 64" fill="none">
+    <Path
+      d="M20.3418 29.7995C19.4771 28.8787 18.1294 28.9347 17.5567 30.114L3.42905 58.3015C2.86755 59.4246 3.69855 60.7386 4.93392 60.7386H24.5867C25.2379 60.7499 25.8221 60.3791 26.0916 59.7952C30.3478 51.0582 27.7873 37.7504 20.3418 29.7995Z"
+      fill="#0C62DC"
+    />
+    <Path
+      d="M30.6959 4.16124C16.9615 25.8802 29.7413 43.3092 37.9954 59.8064C38.2762 60.3792 38.8602 60.75 39.5003 60.75H59.0633C60.3212 60.75 61.1295 59.4247 60.5682 58.3129C60.5682 58.3129 34.2333 5.46386 33.5707 4.14999C32.9757 2.95949 31.4595 2.93711 30.6959 4.16124Z"
+      fill="#2681FF"
+    />
+  </Svg>
+);
+
 interface SignUpProps {
   navigation?: any;
 }
@@ -196,11 +208,7 @@ export default function SignUp({ navigation }: SignUpProps) {
           <View style={styles.content}>
             {/* Logo */}
             <View style={styles.logoContainer}>
-              <Image
-                source={{ uri: "http://localhost:3845/assets/f75536243265e3ae18756f81ae0f84802cd92168.svg" }}
-                style={styles.logo}
-                resizeMode="contain"
-              />
+              <LogoIcon />
             </View>
 
             {/* Header Section */}
@@ -435,10 +443,6 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     marginBottom: isSmallScreen ? 16 : 24,
-  },
-  logo: {
-    width: 64,
-    height: 64,
   },
   headerContainer: {
     alignItems: 'center',

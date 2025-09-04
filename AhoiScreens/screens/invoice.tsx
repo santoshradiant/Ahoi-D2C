@@ -74,88 +74,7 @@ const ShareIcon = () => (
   </Svg>
 );
 
-const HomeIcon = ({ color = '#ffffff' }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M2.625 7.875L10.5 2.625L18.375 7.875V17.5C18.375 17.9473 18.1973 18.3763 17.8839 18.6897C17.5705 19.0031 17.1415 19.1808 16.6942 19.1808H4.30583C3.85854 19.1808 3.42951 19.0031 3.11612 18.6897C2.80272 18.3763 2.625 17.9473 2.625 17.5V7.875Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M7.875 19.1808V10.5H13.125V19.1808"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const RequestIcon = ({ color = '#c7cad1' }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M10.5 19.25C15.3325 19.25 19.25 15.3325 19.25 10.5C19.25 5.66751 15.3325 1.75 10.5 1.75C5.66751 1.75 1.75 5.66751 1.75 10.5C1.75 15.3325 5.66751 19.25 10.5 19.25Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M10.5 7V14"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M7 10.5H14"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const PaymentsIcon = ({ color = '#c7cad1' }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M17.5 3.5H3.5C2.57053 3.5 1.75 4.32053 1.75 5.25V15.75C1.75 16.6795 2.57053 17.5 3.5 17.5H17.5C18.4295 17.5 19.25 16.6795 19.25 15.75V5.25C19.25 4.32053 18.4295 3.5 17.5 3.5Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M1.75 8.75H19.25"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const ProfileIcon = ({ color = '#c7cad1' }) => (
-  <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
-    <Path
-      d="M17.5 18.375V16.625C17.5 15.6967 17.1313 14.8065 16.4749 14.1501C15.8185 13.4937 14.9283 13.125 14 13.125H7C6.07174 13.125 5.18151 13.4937 4.52513 14.1501C3.86875 14.8065 3.5 15.6967 3.5 16.625V18.375"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M10.5 9.625C12.433 9.625 14 8.058 14 6.125C14 4.192 12.433 2.625 10.5 2.625C8.567 2.625 7 4.192 7 6.125C7 8.058 8.567 9.625 10.5 9.625Z"
-      stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
+// Bottom tab icons removed - now handled by tab navigator
 
 interface InvoiceProps {
   navigation: {
@@ -194,31 +113,7 @@ const Invoice: React.FC<InvoiceProps> = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation Bar */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <HomeIcon color="#ffffff" />
-          <Text style={[styles.navText, styles.activeNavText]}>Home</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('ServiceDetails')}
-        >
-          <RequestIcon />
-          <Text style={styles.navText}>Request</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.navItem}>
-          <PaymentsIcon />
-          <Text style={styles.navText}>Payments</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.navItem}>
-          <ProfileIcon />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Bottom Navigation is now handled by the tab navigator */}
     </SafeAreaView>
   );
 };
@@ -269,30 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666666',
   },
-  bottomNav: {
-    height: 92,
-    backgroundColor: '#0B8494',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingBottom: 20,
-    paddingHorizontal: 16,
-  },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 7,
-    paddingHorizontal: 7,
-    borderRadius: 8.75,
-  },
-  navText: {
-    fontFamily: 'SF Pro Display',
-    fontSize: 15,
-    color: '#C7CAD1',
-  },
-  activeNavText: {
-    color: '#FFFFFF',
-  },
+  // Bottom navigation styles removed - now handled by tab navigator
 });
 
 export default Invoice;

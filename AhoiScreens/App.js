@@ -5,9 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from './screens/signin';
 import SignUp from './screens/signup';
-import HomeScreen from './screens/home';
+import MainTabNavigator from './navigation/MainTabNavigator';
 import HomeFilledScreen from './screens/homefilled';
-import PaymentsScreen from './screens/payments';
 import DownloadReceipt from './screens/downloadreciept';
 import Invoice from './screens/invoice';
 import AllRequests from './screens/AllRequests';
@@ -15,7 +14,6 @@ import ServiceDetails from './screens/servicedetails';
 import ServiceDetailsSchedule from './screens/servicedetailschedule';
 import ServiceDetailPayment from './screens/servicedetailpayment';
 import ServiceDetailReview from './screens/servicedetailreview';
-import Profile from './screens/profile';
 import ManageAddress from './screens/manageaddress';
 import Terms from './screens/terms';
 import EditPayment from './screens/EditPayment';
@@ -31,11 +29,20 @@ export default function App() {
           headerShown: false,
         }}
       >
+        {/* Authentication Screens */}
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="HomeFilled" component={HomeFilledScreen} />
-        <Stack.Screen name="Payments" component={PaymentsScreen} />
+        
+        {/* Main App with Tab Navigation */}
+        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+        
+        {/* Additional Screens */}
+        <Stack.Screen 
+          name="HomeFilled" 
+          component={HomeFilledScreen}
+        />
+        
+        {/* Modal and Detail Screens */}
         <Stack.Screen 
           name="DownloadReceipt" 
           component={DownloadReceipt}
@@ -66,10 +73,6 @@ export default function App() {
         <Stack.Screen 
           name="ServiceDetailReview" 
           component={ServiceDetailReview}
-        />
-        <Stack.Screen 
-          name="Profile" 
-          component={Profile}
         />
         <Stack.Screen 
           name="ManageAddress" 
