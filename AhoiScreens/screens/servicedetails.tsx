@@ -19,13 +19,11 @@ const isSmallScreen = height < 700;
 
 // Avatar component
 const Avatar = ({ size = 48 }: { size?: number }) => (
-  <View style={[styles.avatar, { width: size, height: size }]}>
-    <Image
-      source={{ uri: "http://localhost:3845/assets/18e01e2a8ee181c23b1a83841d2dd01e220d6520.png" }}
-      style={styles.avatarImage}
-      resizeMode="cover"
-    />
-  </View>
+  <Image
+    source={require('../assets/avatar.png')}
+    style={[styles.avatar, { width: size, height: size }]}
+    resizeMode="cover"
+  />
 );
 
 // SVG Icons
@@ -404,13 +402,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   avatar: {
-    backgroundColor: '#E0B8FF',
     borderRadius: 16.5,
-    overflow: 'hidden',
-  },
-  avatarImage: {
-    width: '100%',
-    height: '100%',
   },
   welcomeContainer: {
     gap: 0,

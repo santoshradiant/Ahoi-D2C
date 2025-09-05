@@ -239,6 +239,12 @@ export default function Profile({ navigation }: ProfileProps) {
     console.log('Update password pressed');
   };
 
+  const handleNavigation = (screenName: string) => {
+    if (navigation) {
+      navigation.navigate(screenName);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffddab" />
@@ -249,8 +255,9 @@ export default function Profile({ navigation }: ProfileProps) {
           <View style={styles.profileSection}>
             <View style={styles.avatarContainer}>
               <Image
-                source={{ uri: 'https://via.placeholder.com/48x48/e0b8ff/000000?text=JD' }}
+                source={require('../assets/avatar.png')}
                 style={styles.avatar}
+                resizeMode="cover"
               />
             </View>
             <View style={styles.profileInfo}>
@@ -881,6 +888,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#1f232c',
     lineHeight: 18,
+    textDecorationLine: 'underline',
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
   },
   personalInfoButtonContainer: {

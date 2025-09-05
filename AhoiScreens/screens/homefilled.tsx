@@ -35,31 +35,45 @@ const EyeIcon = ({ color = '#ffffff' }: { color?: string }) => (
   </Svg>
 );
 
-const CheckIcon = ({ color = '#008236' }: { color?: string }) => (
-  <Svg width={14} height={14} viewBox="0 0 24 24" fill="none">
+const CheckIcon = ({ color = '#00A63E' }: { color?: string }) => (
+  <Svg width={14} height={15} viewBox="0 0 14 15" fill="none">
     <Path
-      d="M20 6L9 17l-5-5"
+      d="M12.7172 6.33333C12.9837 7.64075 12.7938 8.99999 12.1793 10.1844C11.5649 11.3688 10.5629 12.3067 9.34063 12.8418C8.11833 13.3768 6.74953 13.4767 5.4625 13.1247C4.17548 12.7727 3.04803 11.9901 2.26816 10.9075C1.48829 9.82484 1.10315 8.50755 1.17697 7.1753C1.25078 5.84306 1.77909 4.57638 2.67379 3.58651C3.56849 2.59664 4.7755 1.94341 6.09354 1.73576C7.41157 1.5281 8.76095 1.77858 9.91666 2.44541"
       stroke={color}
-      strokeWidth={2}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.25 6.91668L7 8.66668L12.8333 2.83334"
+      stroke={color}
+      strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
   </Svg>
 );
 
-const ClockIcon = ({ color = '#a65f00' }: { color?: string }) => (
-  <Svg width={14} height={14} viewBox="0 0 24 24" fill="none">
+const ClockIcon = ({ color = '#D08700' }: { color?: string }) => (
+  <Svg width={14} height={14} viewBox="0 0 14 14" fill="none">
     <Path
-      d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+      d="M7.00002 12.8334C10.2217 12.8334 12.8334 10.2217 12.8334 7.00002C12.8334 3.77836 10.2217 1.16669 7.00002 1.16669C3.77836 1.16669 1.16669 3.77836 1.16669 7.00002C1.16669 10.2217 3.77836 12.8334 7.00002 12.8334Z"
       stroke={color}
-      strokeWidth={2}
+      strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <Path
-      d="M12 6v6l4 2"
+      d="M7 4.66669V7.00002"
       stroke={color}
-      strokeWidth={2}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7 9.33331H7.00583"
+      stroke={color}
+      strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -80,24 +94,11 @@ const ArrowRightIcon = ({ color = '#030213' }: { color?: string }) => (
 
 // Avatar placeholder component
 const AvatarPlaceholder = () => (
-  <View style={styles.avatarPlaceholder}>
-    <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-      <Path
-        d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
-        stroke="#0b8494"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
-        stroke="#0b8494"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </Svg>
-  </View>
+  <Image 
+    source={require('../assets/avatar.png')} 
+    style={styles.avatarPlaceholder}
+    resizeMode="cover"
+  />
 );
 
 // Navigation icons are now handled by the tab navigator
@@ -457,9 +458,6 @@ const styles = StyleSheet.create({
   avatarPlaceholder: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#e0b8ff',
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 16.5,
   },
   textContainer: {

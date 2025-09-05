@@ -167,9 +167,11 @@ const ProfileIcon = ({ active = false }: { active?: boolean }) => (
 
 // Avatar component
 const Avatar = () => (
-  <View style={styles.avatar}>
-    <View style={styles.avatarImage} />
-  </View>
+  <Image 
+    source={require('../assets/avatar.png')} 
+    style={styles.avatar}
+    resizeMode="cover"
+  />
 );
 
 // Transaction Card Component
@@ -438,15 +440,6 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 16.5,
-    backgroundColor: '#e0b8ff',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatarImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
   },
   headerText: {
     gap: 2,

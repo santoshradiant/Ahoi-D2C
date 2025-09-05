@@ -32,22 +32,21 @@ const imgPlus = "http://localhost:3845/assets/627de1d0af7e86f5c0b39d269894805d97
 
 // Avatar component
 const Avatar = ({ size = 48 }: { size?: number }) => (
-  <View style={[styles.avatar, { width: size, height: size }]}>
-    <Image
-      source={{ uri: imgRectangle3 }}
-      style={styles.avatarImage}
-      resizeMode="cover"
-    />
-  </View>
+  <Image
+    source={require('../assets/avatar.png')}
+    style={[styles.avatar, { width: size, height: size }]}
+    resizeMode="cover"
+  />
 );
 
 // Icon components using actual Figma assets
-const ArrowLeftIcon = () => (
-  <Image
-    source={{ uri: img5 }}
-    style={{ width: 16, height: 16 }}
-    resizeMode="contain"
-  />
+const ArrowLeftIcon = ({ color = 'black' }: { color?: string }) => (
+  <Svg width={20} height={16} viewBox="0 0 20 16" fill="none">
+    <Path
+      d="M20.0002 8.00028C20.0002 8.55328 19.5532 9.00028 19.0002 9.00028H3.41422L8.70719 14.2933C9.09819 14.6842 9.09819 15.3163 8.70719 15.7073C8.51219 15.9023 8.25622 16.0003 8.00022 16.0003C7.74422 16.0003 7.48825 15.9023 7.29325 15.7073L0.29325 8.70731C-0.09775 8.31631 -0.09775 7.68425 0.29325 7.29325L7.29325 0.29325C7.68425 -0.09775 8.31619 -0.09775 8.70719 0.29325C9.09819 0.68425 9.09819 1.31631 8.70719 1.70731L3.41422 7.00028H19.0002C19.5532 7.00028 20.0002 7.44728 20.0002 8.00028Z"
+      fill={color}
+    />
+  </Svg>
 );
 
 const ArrowRightIcon = () => (
@@ -389,13 +388,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   avatar: {
-    backgroundColor: '#E0B8FF',
     borderRadius: 16.5,
-    overflow: 'hidden',
-  },
-  avatarImage: {
-    width: '100%',
-    height: '100%',
   },
   welcomeContainer: {
     gap: 0,

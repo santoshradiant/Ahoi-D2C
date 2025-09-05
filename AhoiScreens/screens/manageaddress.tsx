@@ -16,14 +16,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Svg, Path } from 'react-native-svg';
 
 // SVG Icons
-const ArrowLeftIcon = ({ color = '#1f232c' }: { color?: string }) => (
+const ArrowLeftIcon = ({ color = 'black' }: { color?: string }) => (
   <Svg width={20} height={16} viewBox="0 0 20 16" fill="none">
     <Path
-      d="M8 1L1 8L8 15"
-      stroke={color}
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M20.0002 8.00028C20.0002 8.55328 19.5532 9.00028 19.0002 9.00028H3.41422L8.70719 14.2933C9.09819 14.6842 9.09819 15.3163 8.70719 15.7073C8.51219 15.9023 8.25622 16.0003 8.00022 16.0003C7.74422 16.0003 7.48825 15.9023 7.29325 15.7073L0.29325 8.70731C-0.09775 8.31631 -0.09775 7.68425 0.29325 7.29325L7.29325 0.29325C7.68425 -0.09775 8.31619 -0.09775 8.70719 0.29325C9.09819 0.68425 9.09819 1.31631 8.70719 1.70731L3.41422 7.00028H19.0002C19.5532 7.00028 20.0002 7.44728 20.0002 8.00028Z"
+      fill={color}
     />
   </Svg>
 );
@@ -59,19 +56,54 @@ const HomeIcon = ({ color = '#0b8494' }: { color?: string }) => (
   </Svg>
 );
 
-const OfficeIcon = ({ color = '#0b8494' }: { color?: string }) => (
+const OfficeIcon = ({ color = '#717182' }: { color?: string }) => (
   <Svg width={14} height={14} viewBox="0 0 14 14" fill="none">
     <Path
-      d="M3.5 1.75H10.5C10.9142 1.75 11.25 2.08579 11.25 2.5V11.5C11.25 11.9142 10.9142 12.25 10.5 12.25H3.5C3.08579 12.25 2.75 11.9142 2.75 11.5V2.5C2.75 2.08579 3.08579 1.75 3.5 1.75Z"
+      d="M3.5 12.8333V2.33332C3.5 2.0239 3.62292 1.72716 3.84171 1.50837C4.0605 1.28957 4.35725 1.16666 4.66667 1.16666H9.33333C9.64275 1.16666 9.9395 1.28957 10.1583 1.50837C10.3771 1.72716 10.5 2.0239 10.5 2.33332V12.8333H3.5Z"
       stroke={color}
-      strokeWidth={1.17}
+      strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <Path
-      d="M5.25 4.375H8.75M5.25 6.125H8.75M5.25 7.875H8.75"
+      d="M3.49984 7H2.33317C2.02375 7 1.72701 7.12292 1.50821 7.34171C1.28942 7.5605 1.1665 7.85725 1.1665 8.16667V11.6667C1.1665 11.9761 1.28942 12.2728 1.50821 12.4916C1.72701 12.7104 2.02375 12.8333 2.33317 12.8333H3.49984"
       stroke={color}
-      strokeWidth={1.17}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M10.5 5.25H11.6667C11.9761 5.25 12.2728 5.37292 12.4916 5.59171C12.7104 5.8105 12.8333 6.10725 12.8333 6.41667V11.6667C12.8333 11.9761 12.7104 12.2728 12.4916 12.4916C12.2728 12.7104 11.9761 12.8333 11.6667 12.8333H10.5"
+      stroke={color}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.8335 3.5H8.16683"
+      stroke={color}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.8335 5.83334H8.16683"
+      stroke={color}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.8335 8.16666H8.16683"
+      stroke={color}
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.8335 10.5H8.16683"
+      stroke={color}
+      strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -851,13 +883,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#1f232c',
     lineHeight: 22.1,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
-  addButtonText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#ffffff',
-    lineHeight: 14.3,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
   },
   homeIndicatorContainer: {

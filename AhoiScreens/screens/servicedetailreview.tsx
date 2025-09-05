@@ -35,13 +35,11 @@ const imgCheckmark = "http://localhost:3845/assets/91a039ceeaa57cd033eb1c48b0e18
 
 // Avatar component
 const Avatar = ({ size = 48 }: { size?: number }) => (
-  <View style={[styles.avatar, { width: size, height: size }]}>
-    <Image
-      source={{ uri: imgRectangle3 }}
-      style={styles.avatarImage}
-      resizeMode="cover"
-    />
-  </View>
+  <Image
+    source={require('../assets/avatar.png')}
+    style={[styles.avatar, { width: size, height: size }]}
+    resizeMode="cover"
+  />
 );
 
 // Icon components using actual Figma assets
@@ -426,13 +424,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   avatar: {
-    backgroundColor: '#E0B8FF',
     borderRadius: 16.5,
-    overflow: 'hidden',
-  },
-  avatarImage: {
-    width: '100%',
-    height: '100%',
   },
   welcomeContainer: {
     gap: 0,

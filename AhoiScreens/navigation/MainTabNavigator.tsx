@@ -32,25 +32,18 @@ const HomeIcon = ({ color = '#c7cad1', size = 21 }: { color?: string; size?: num
 );
 
 const RequestIcon = ({ color = '#c7cad1', size = 21 }: { color?: string; size?: number }) => (
-  <Svg width={size} height={size} viewBox="0 0 21 21" fill="none">
+  <Svg width={size} height={size} viewBox="0 0 22 21" fill="none">
     <Path
-      d="M10.5 19.25C15.3325 19.25 19.25 15.3325 19.25 10.5C19.25 5.66751 15.3325 1.75 10.5 1.75C5.66751 1.75 1.75 5.66751 1.75 10.5C1.75 15.3325 5.66751 19.25 10.5 19.25Z"
+      d="M4.50833 10.5H16.7583"
       stroke={color}
-      strokeWidth={1.5}
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <Path
-      d="M10.5 7V14"
+      d="M10.6333 4.375V16.625"
       stroke={color}
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M7 10.5H14"
-      stroke={color}
-      strokeWidth={1.5}
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
     />

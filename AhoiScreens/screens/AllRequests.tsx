@@ -26,11 +26,44 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 // SVG Icons as components
 const CheckIcon = () => (
+  <Svg width={14} height={15} viewBox="0 0 14 15" fill="none">
+    <Path
+      d="M12.7172 6.33333C12.9837 7.64075 12.7938 8.99999 12.1793 10.1844C11.5649 11.3688 10.5629 12.3067 9.34063 12.8418C8.11833 13.3768 6.74953 13.4767 5.4625 13.1247C4.17548 12.7727 3.04803 11.9901 2.26816 10.9075C1.48829 9.82484 1.10315 8.50755 1.17697 7.1753C1.25078 5.84306 1.77909 4.57638 2.67379 3.58651C3.56849 2.59664 4.7755 1.94341 6.09354 1.73576C7.41157 1.5281 8.76095 1.77858 9.91666 2.44541"
+      stroke="#00A63E"
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M5.25 6.91668L7 8.66668L12.8333 2.83334"
+      stroke="#00A63E"
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+const ClockIcon = () => (
   <Svg width={14} height={14} viewBox="0 0 14 14" fill="none">
     <Path
-      d="M11.6667 3.5L5.25 9.91667L2.33333 7"
-      stroke="#008236"
-      strokeWidth={1.5}
+      d="M7.00002 12.8334C10.2217 12.8334 12.8334 10.2217 12.8334 7.00002C12.8334 3.77836 10.2217 1.16669 7.00002 1.16669C3.77836 1.16669 1.16669 3.77836 1.16669 7.00002C1.16669 10.2217 3.77836 12.8334 7.00002 12.8334Z"
+      stroke="#D08700"
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7 4.66669V7.00002"
+      stroke="#D08700"
+      strokeWidth={1.16667}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M7 9.33331H7.00583"
+      stroke="#D08700"
+      strokeWidth={1.16667}
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -56,14 +89,11 @@ const EyeIcon = () => (
   </Svg>
 );
 
-const BackIcon = () => (
-  <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
+const BackIcon = ({ color = 'black' }: { color?: string }) => (
+  <Svg width={20} height={16} viewBox="0 0 20 16" fill="none">
     <Path
-      d="M15 18L9 12L15 6"
-      stroke="#1F232C"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M20.0002 8.00028C20.0002 8.55328 19.5532 9.00028 19.0002 9.00028H3.41422L8.70719 14.2933C9.09819 14.6842 9.09819 15.3163 8.70719 15.7073C8.51219 15.9023 8.25622 16.0003 8.00022 16.0003C7.74422 16.0003 7.48825 15.9023 7.29325 15.7073L0.29325 8.70731C-0.09775 8.31631 -0.09775 7.68425 0.29325 7.29325L7.29325 0.29325C7.68425 -0.09775 8.31619 -0.09775 8.70719 0.29325C9.09819 0.68425 9.09819 1.31631 8.70719 1.70731L3.41422 7.00028H19.0002C19.5532 7.00028 20.0002 7.44728 20.0002 8.00028Z"
+      fill={color}
     />
   </Svg>
 );
@@ -139,7 +169,7 @@ const RequestCard: React.FC<RequestCardProps> = ({
                     : styles.pendingBadge,
                 ]}
               >
-                <CheckIcon />
+                {status === 'completed' ? <CheckIcon /> : <ClockIcon />}
                 <Text
                   style={[
                     styles.statusText,

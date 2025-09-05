@@ -108,9 +108,11 @@ const Invoice: React.FC<InvoiceProps> = ({ navigation }) => {
 
       {/* Invoice Image */}
       <ScrollView style={styles.scrollView}>
-        <View style={styles.invoiceImagePlaceholder}>
-          <Text style={styles.placeholderText}>Invoice Preview</Text>
-        </View>
+        <Image
+          source={require('../assets/invoice.png')}
+          style={styles.invoiceImage}
+          resizeMode="contain"
+        />
       </ScrollView>
 
       {/* Bottom Navigation is now handled by the tab navigator */}
@@ -153,16 +155,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-  invoiceImagePlaceholder: {
+  invoiceImage: {
     width: width,
     height: 520,
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    fontSize: 16,
-    color: '#666666',
   },
   // Bottom navigation styles removed - now handled by tab navigator
 });
