@@ -12,6 +12,7 @@ import {
   Image,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
+import TickIcon from '../components/TickIcon';
 
 const { width, height } = Dimensions.get('window');
 
@@ -226,10 +227,7 @@ export default function ServiceDetailsSchedule({ navigation }: ServiceDetailsSch
           <View style={styles.stepContainer}>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
-                <Image
-                  source={{ uri: "http://localhost:3845/assets/5c5a52f5f3638bec44c5aa43fbd9ee49a0cc7d6e.svg" }}
-                  style={styles.stepIcon}
-                />
+                <TickIcon size={21} />
               </View>
               <Text style={styles.stepLabel}>Service Details</Text>
             </View>
@@ -279,7 +277,7 @@ export default function ServiceDetailsSchedule({ navigation }: ServiceDetailsSch
                 </View>
                 <TouchableOpacity style={styles.calendarButton}>
                   <Image
-                    source={{ uri: "http://localhost:3845/assets/128ec7b23035654077fa1c5fe25a68ba52552863.svg" }}
+                    source={require('../assets/calendar-icon.svg')}
                     style={styles.calendarIcon}
                   />
                 </TouchableOpacity>

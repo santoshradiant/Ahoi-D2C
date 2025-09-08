@@ -11,24 +11,25 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import { Svg, Path, Circle } from 'react-native-svg';
+import { Svg, Path, Circle, Mask, G, Rect, Text as SvgText } from 'react-native-svg';
+import TickIcon from '../components/TickIcon';
 
 const { width, height } = Dimensions.get('window');
 
-// Image constants from Figma
-const imgRectangle3 = "http://localhost:3845/assets/18e01e2a8ee181c23b1a83841d2dd01e220d6520.png";
-const imgBackground = "http://localhost:3845/assets/5c5a52f5f3638bec44c5aa43fbd9ee49a0cc7d6e.svg";
-const img4 = "http://localhost:3845/assets/238dd6892dbbe27d5a06afc6b5d9d7c25ce52a34.svg";
-const imgGroup = "http://localhost:3845/assets/e0b72717e769b3e1cf105f2762bf0e5bf9573f99.svg";
-const img5 = "http://localhost:3845/assets/1931af93fccce6db5f6a709dd0914e3c0943f2c7.svg";
-const img6 = "http://localhost:3845/assets/5e27d319007ceae5c2baf0312b3bf1c5585567c9.svg";
-const imgSvg1 = "http://localhost:3845/assets/d84a9b81c6295b1332bab14f129e91d2f36a1bbe.svg";
-const imgSvg2 = "http://localhost:3845/assets/56f398108f40dc6ac8782234ae58f50bdbac80cb.svg";
-const imgSvg3 = "http://localhost:3845/assets/843b023d2f29645dc66350eb22a3161368a0319f.svg";
-const imgSvg4 = "http://localhost:3845/assets/1ed729b77ba81b272e971e923d269ec6d680f9f8.svg";
-const imgSvg = "http://localhost:3845/assets/674d9ec0091d121f0ca06cc36cf0f27baea191c4.svg";
-const img3 = "http://localhost:3845/assets/5b36b24a3c2a60de0b9c9f0339f805a366aa5a4c.svg";
-const imgPlus = "http://localhost:3845/assets/627de1d0af7e86f5c0b39d269894805d97fa9257.svg";
+// Image constants - using local assets
+const imgRectangle3 = require('../assets/rectangle3.png');
+const imgBackground = require('../assets/background.svg');
+const img4 = require('../assets/arrow-left-alt.svg');
+const imgGroup = require('../assets/group.svg');
+const img5 = require('../assets/arrow-left.svg');
+const img6 = require('../assets/arrow-right.svg');
+const imgSvg1 = require('../assets/home-icon.svg');
+const imgSvg2 = require('../assets/request-icon.svg');
+const imgSvg3 = require('../assets/payments-icon.svg');
+const imgSvg4 = require('../assets/profile-icon.svg');
+const imgSvg = require('../assets/home-icon-alt.svg');
+const img3 = require('../assets/arrow-left-alt.svg');
+const imgPlus = require('../assets/plus-icon.svg');
 
 // Avatar component
 const Avatar = ({ size = 48 }: { size?: number }) => (
@@ -49,18 +50,66 @@ const ArrowLeftIcon = ({ color = 'black' }: { color?: string }) => (
   </Svg>
 );
 
+// Payment method icons
+const VisaIcon = () => (
+  <Svg width={32} height={25} viewBox="0 0 32 25" fill="none">
+    <Mask id="mask0_2088_326" maskType="luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="25">
+      <Path d="M0 0.5H32V24.5H0V0.5Z" fill="white"/>
+    </Mask>
+    <G mask="url(#mask0_2088_326)">
+      <Path d="M28 0.5H4C2.93913 0.5 1.92172 0.921427 1.17157 1.67157C0.421427 2.42172 0 3.43913 0 4.5L0 20.5C0 21.5609 0.421427 22.5783 1.17157 23.3284C1.92172 24.0786 2.93913 24.5 4 24.5H28C29.0609 24.5 30.0783 24.0786 30.8284 23.3284C31.5786 22.5783 32 21.5609 32 20.5V4.5C32 3.43913 31.5786 2.42172 30.8284 1.67157C30.0783 0.921427 29.0609 0.5 28 0.5Z" fill="#252525"/>
+      <Path d="M15.8841 8.76199L14.2801 16.258H12.3401L13.9441 8.76199H15.8841Z" fill="white"/>
+      <Path fillRule="evenodd" clipRule="evenodd" d="M26.2069 16.258H27.9999L26.4329 8.76201H24.7799C24.603 8.76023 24.4296 8.81173 24.2823 8.90982C24.1349 9.00791 24.0206 9.14804 23.9539 9.31201L21.0439 16.258H23.0809L23.4849 15.138H25.9729L26.2069 16.258ZM24.0419 13.602L25.0629 10.787L25.6499 13.602H24.0419Z" fill="white"/>
+      <Path d="M21.144 13.81C21.149 12.627 20.169 12.112 19.384 11.7C18.858 11.424 18.42 11.194 18.427 10.839C18.434 10.569 18.69 10.284 19.25 10.211C19.527 10.175 20.294 10.146 21.163 10.546L21.503 8.956C20.9224 8.73899 20.3078 8.62691 19.688 8.625C17.771 8.625 16.423 9.643 16.412 11.102C16.399 12.182 17.375 12.783 18.109 13.142C18.865 13.51 19.119 13.746 19.115 14.074C19.11 14.577 18.511 14.8 17.955 14.808C17.01 14.823 16.449 14.561 16.005 14.354L15.963 14.334L15.611 15.977C16.065 16.185 16.901 16.367 17.767 16.375C19.805 16.375 21.138 15.369 21.144 13.81ZM13.112 8.762L9.97 16.258H7.92L6.374 10.275C6.28 9.907 6.199 9.772 5.914 9.617C5.447 9.364 4.677 9.127 4 8.979L4.046 8.762H7.346C7.766 8.762 8.144 9.042 8.24 9.525L9.057 13.863L11.075 8.762H13.112Z" fill="white"/>
+    </G>
+  </Svg>
+);
+
+const CashIcon = () => (
+  <Svg width={39} height={24} viewBox="0 0 39 24" fill="none">
+    <Path d="M0.962315 24H34.3947C34.9261 24 35.3569 23.5692 35.3569 23.0378V5.98052C35.3569 5.44911 34.9261 5.01831 34.3947 5.01831H0.962315C0.430904 5.01831 0.000102997 5.44911 0.000102997 5.98052V23.0378C8.39233e-05 23.5692 0.430885 24 0.962315 24Z" fill="#5ED181"/>
+    <Path d="M1.71671 22.7524H35.1491C35.6805 22.7524 36.1113 22.3216 36.1113 21.7902V4.7329C36.1113 4.2015 35.6805 3.77069 35.1491 3.77069H1.71671C1.1853 3.77069 0.754498 4.2015 0.754498 4.7329V21.7902C0.754498 22.3216 1.1853 22.7524 1.71671 22.7524Z" fill="#54B26C"/>
+    <Path d="M2.36613 21.4769H35.7985C36.3299 21.4769 36.7607 21.0461 36.7607 20.5147V3.45739C36.7607 2.92598 36.3299 2.49518 35.7985 2.49518H2.36613C1.83472 2.49518 1.40391 2.92598 1.40391 3.45739V20.5147C1.40389 21.0461 1.8347 21.4769 2.36613 21.4769Z" fill="#5ED181"/>
+    <Path d="M3.12052 20.2294H36.5529C37.0843 20.2294 37.5151 19.7986 37.5151 19.2671V2.20983C37.5151 1.67842 37.0843 1.24762 36.5529 1.24762H3.12052C2.58911 1.24762 2.15831 1.67842 2.15831 2.20983V19.2671C2.15829 19.7986 2.58909 20.2294 3.12052 20.2294Z" fill="#54B26C"/>
+    <Path d="M3.87467 18.9817H37.3071C37.8385 18.9817 38.2693 18.5509 38.2693 18.0195V0.962212C38.2693 0.430803 37.8385 0 37.3071 0H3.87467C3.34327 0 2.91246 0.430803 2.91246 0.962212V18.0195C2.91246 18.5509 3.34327 18.9817 3.87467 18.9817Z" fill="#5ED181"/>
+    <Path d="M4.51504 3.98757V14.9942C5.96107 14.9942 7.13323 16.1663 7.13323 17.6123H34.0486C34.0486 16.1663 35.2207 14.9942 36.6667 14.9942V3.98757C35.2207 3.98757 34.0486 2.81542 34.0486 1.36938H7.13323C7.13323 2.81542 5.96107 3.98757 4.51504 3.98757Z" fill="#8EE88B"/>
+    <Path d="M20.5909 14.6546C17.739 14.6546 15.4271 12.3427 15.4271 9.49081C15.4271 6.63893 17.739 4.32703 20.5909 4.32703C23.4427 4.32703 25.7546 6.63893 25.7546 9.49081C25.7546 12.3427 23.4427 14.6546 20.5909 14.6546Z" fill="#5ED181"/>
+    <Path d="M31.29 12.0809C30.2122 12.0809 29.3384 10.9213 29.3384 9.49086C29.3384 8.06042 30.2122 6.90082 31.29 6.90082C32.3679 6.90082 33.2417 8.06042 33.2417 9.49086C33.2417 10.9213 32.3679 12.0809 31.29 12.0809Z" fill="#5ED181"/>
+    <Path d="M9.8916 12.0809C8.81373 12.0809 7.93995 10.9213 7.93995 9.49086C7.93995 8.06042 8.81373 6.90082 9.8916 6.90082C10.9695 6.90082 11.8433 8.06042 11.8433 9.49086C11.8433 10.9213 10.9695 12.0809 9.8916 12.0809Z" fill="#5ED181"/>
+  </Svg>
+);
+
+// Card type icons
+const VisaCardIcon = () => (
+  <Svg width={18} height={12} viewBox="0 0 18 12" fill="none">
+    <Rect x="0.5" y="0.5" width="17" height="11" rx="2" fill="#1A1F71"/>
+    <Path d="M6.5 3.5H11.5V8.5H6.5V3.5Z" fill="white"/>
+    <Path d="M7.5 4.5H10.5V7.5H7.5V4.5Z" fill="#1A1F71"/>
+    <SvgText x="9" y="6" textAnchor="middle" fontSize="3" fill="white" fontWeight="bold">VISA</SvgText>
+  </Svg>
+);
+
+const MastercardIcon = () => (
+  <Svg width={18} height="12" viewBox="0 0 18 12" fill="none">
+    <Rect x="0.5" y="0.5" width="17" height="11" rx="2" fill="#EB001B"/>
+    <Circle cx="6" cy="6" r="2.5" fill="#F79E1B"/>
+    <Circle cx="12" cy="6" r="2.5" fill="#F79E1B"/>
+    <Path d="M8.5 6C8.5 4.5 9.5 3.5 11 3.5C12.5 3.5 13.5 4.5 13.5 6C13.5 7.5 12.5 8.5 11 8.5C9.5 8.5 8.5 7.5 8.5 6Z" fill="#EB001B"/>
+  </Svg>
+);
+
 const ArrowRightIcon = () => (
   <Image
-    source={{ uri: img6 }}
+    source={img6}
     style={{ width: 16, height: 16 }}
     resizeMode="contain"
   />
 );
 
-// Bottom Navigation Icons using actual Figma assets
+// Bottom Navigation Icons using local assets
 const HomeIcon = () => (
   <Image
-    source={{ uri: imgSvg1 }}
+    source={imgSvg1}
     style={{ width: 21, height: 21 }}
     resizeMode="contain"
   />
@@ -68,7 +117,7 @@ const HomeIcon = () => (
 
 const RequestIcon = () => (
   <Image
-    source={{ uri: imgSvg2 }}
+    source={imgSvg2}
     style={{ width: 23.1, height: 23.1 }}
     resizeMode="contain"
   />
@@ -76,7 +125,7 @@ const RequestIcon = () => (
 
 const PaymentsIcon = () => (
   <Image
-    source={{ uri: imgSvg3 }}
+    source={imgSvg3}
     style={{ width: 21, height: 21 }}
     resizeMode="contain"
   />
@@ -84,7 +133,7 @@ const PaymentsIcon = () => (
 
 const ProfileIcon = () => (
   <Image
-    source={{ uri: imgSvg4 }}
+    source={imgSvg4}
     style={{ width: 21, height: 21 }}
     resizeMode="contain"
   />
@@ -163,19 +212,13 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
           <View style={styles.stepContainer}>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
-                <Image
-                  source={{ uri: imgBackground }}
-                  style={styles.stepIcon}
-                />
+                <TickIcon size={21} />
               </View>
               <Text style={styles.stepLabel}>Service Details</Text>
             </View>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
-                <Image
-                  source={{ uri: imgBackground }}
-                  style={styles.stepIcon}
-                />
+                <TickIcon size={21} />
               </View>
               <Text style={styles.stepLabel}>Schedule</Text>
             </View>
@@ -216,10 +259,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
               onPress={() => handlePaymentSelect('card')}
             >
               <View style={styles.paymentOptionContent}>
-                <Image
-                  source={{ uri: img4 }}
-                  style={styles.paymentIcon}
-                />
+                <VisaIcon />
                 <View style={styles.paymentInfo}>
                   <Text style={styles.paymentTitle}>Credit/Debit Card</Text>
                   <Text style={styles.paymentDescription}>Pay securely online</Text>
@@ -239,10 +279,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
               onPress={() => handlePaymentSelect('cash')}
             >
               <View style={styles.paymentOptionContent}>
-                <Image
-                  source={{ uri: imgGroup }}
-                  style={styles.cashIcon}
-                />
+                <CashIcon />
                 <View style={styles.paymentInfo}>
                   <Text style={styles.paymentTitle}>Cash Payment</Text>
                   <Text style={styles.paymentDescription}>Pay the technician upon completion</Text>
@@ -279,12 +316,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
                     onPress={() => setSelectedCard('visa-4242')}
                   >
                     <View style={styles.cardContent}>
-                      <View style={styles.cardIconContainer}>
-                        <Image
-                          source={{ uri: imgSvg }}
-                          style={styles.cardTypeIcon}
-                        />
-                      </View>
+                      <VisaCardIcon />
                       <View style={styles.cardDetails}>
                         <View style={styles.cardTitleRow}>
                           <Text style={styles.cardNumber}>Visa •••• 4242</Text>
@@ -309,12 +341,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
                     onPress={() => setSelectedCard('mastercard-8888')}
                   >
                     <View style={styles.cardContent}>
-                      <View style={styles.cardIconContainer}>
-                        <Image
-                          source={{ uri: imgSvg }}
-                          style={styles.cardTypeIcon}
-                        />
-                      </View>
+                      <MastercardIcon />
                       <View style={styles.cardDetails}>
                         <Text style={styles.cardNumber}>Mastercard •••• 8888</Text>
                         <Text style={styles.cardExpiry}>Expires 08/26</Text>
@@ -329,7 +356,7 @@ export default function ServiceDetailPayment({ navigation }: ServiceDetailPaymen
                 {/* Add Card Button */}
                 <TouchableOpacity style={styles.addCardButton}>
                   <Image
-                    source={{ uri: imgPlus }}
+                    source={imgPlus}
                     style={styles.addCardIcon}
                   />
                   <Text style={styles.addCardText}>Add Debit/Credit Card</Text>
@@ -562,7 +589,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 17,
     borderRadius: 8,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: '#D4D4D8',
     backgroundColor: 'rgba(255,255,255,0)',
     shadowColor: '#000',
@@ -588,9 +615,8 @@ const styles = StyleSheet.create({
     height: 24,
   },
   cashIcon: {
-    width: 38.269,
+    width: 39,
     height: 24,
-    transform: [{ rotateY: '180deg' }],
   },
   paymentInfo: {
     flex: 1,
@@ -743,18 +769,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     gap: 10.5,
-  },
-  cardIconContainer: {
-    backgroundColor: 'rgba(3,2,19,0.1)',
-    width: 35,
-    height: 35,
-    borderRadius: 8.75,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardTypeIcon: {
-    width: 17.5,
-    height: 17.5,
   },
   cardDetails: {
     flex: 1,

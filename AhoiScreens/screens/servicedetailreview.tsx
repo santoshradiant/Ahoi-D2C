@@ -12,26 +12,31 @@ import {
   Image,
   Modal,
 } from 'react-native';
+import TickIcon from '../components/TickIcon';
 
 const { width, height } = Dimensions.get('window');
 
-// Image constants from Figma
-const imgRectangle3 = "http://localhost:3845/assets/18e01e2a8ee181c23b1a83841d2dd01e220d6520.png";
-const imgRectangle4 = "http://localhost:3845/assets/a2ec4f106a2b7b150c67ec5e53cf64a9fa74d4b0.png";
-const imgRectangle5 = "http://localhost:3845/assets/5c8d238d361cfb4c2b5bacd017585f5d921793fb.png";
-const imgRectangle6 = "http://localhost:3845/assets/1af874fade7ad42053642a16d9f68b47f85969b6.png";
-const imgBackground = "http://localhost:3845/assets/5c5a52f5f3638bec44c5aa43fbd9ee49a0cc7d6e.svg";
-const imgBackground1 = "http://localhost:3845/assets/211686a7b81f07a482d651b74bcc8aad0d6bac24.svg";
-const imgBackground2 = "http://localhost:3845/assets/a5001cbbeb9ce9605a6d73f60ff9537bfb451c9f.svg";
-const imgBackground3 = "http://localhost:3845/assets/0deebf68bd4e2e24a05bc7178c6559c0ecc66602.svg";
-const img3 = "http://localhost:3845/assets/1931af93fccce6db5f6a709dd0914e3c0943f2c7.svg";
-const imgSvg = "http://localhost:3845/assets/d84a9b81c6295b1332bab14f129e91d2f36a1bbe.svg";
-const imgSvg1 = "http://localhost:3845/assets/56f398108f40dc6ac8782234ae58f50bdbac80cb.svg";
-const imgSvg2 = "http://localhost:3845/assets/843b023d2f29645dc66350eb22a3161368a0319f.svg";
-const imgSvg3 = "http://localhost:3845/assets/1ed729b77ba81b272e971e923d269ec6d680f9f8.svg";
+// Image constants - using local assets
+const imgRectangle3 = require('../assets/rectangle3.png');
+const imgRectangle4 = require('../assets/rectangle4.png');
+const imgRectangle5 = require('../assets/rectangle5.png');
+const imgRectangle6 = require('../assets/rectangle6.png');
+// Car photos - using existing assets as placeholders for car images
+const carWheelPhoto = require('../assets/cari.png');
+const carInteriorPhoto = require('../assets/carj.png');
+const carExteriorPhoto = require('../assets/cark.png');
+const imgBackground = require('../assets/background.svg');
+const imgBackground1 = require('../assets/background1.svg');
+const imgBackground2 = require('../assets/background2.svg');
+const imgBackground3 = require('../assets/background3.svg');
+const img3 = require('../assets/arrow-left.svg');
+const imgSvg = require('../assets/home-icon.svg');
+const imgSvg1 = require('../assets/request-icon.svg');
+const imgSvg2 = require('../assets/payments-icon.svg');
+const imgSvg3 = require('../assets/profile-icon.svg');
 
-// Modal image constants from Figma
-const imgCheckmark = "http://localhost:3845/assets/91a039ceeaa57cd033eb1c48b0e18f58d51f0080.svg";
+// Modal image constants - using local assets
+const imgCheckmark = require('../assets/checkmark.svg');
 
 // Avatar component
 const Avatar = ({ size = 48 }: { size?: number }) => (
@@ -42,19 +47,19 @@ const Avatar = ({ size = 48 }: { size?: number }) => (
   />
 );
 
-// Icon components using actual Figma assets
+// Icon components using local assets
 const ArrowLeftIcon = () => (
   <Image
-    source={{ uri: img3 }}
+    source={img3}
     style={{ width: 16, height: 16 }}
     resizeMode="contain"
   />
 );
 
-// Bottom Navigation Icons using actual Figma assets
+// Bottom Navigation Icons using local assets
 const HomeIcon = () => (
   <Image
-    source={{ uri: imgSvg }}
+    source={imgSvg}
     style={{ width: 21, height: 21 }}
     resizeMode="contain"
   />
@@ -62,7 +67,7 @@ const HomeIcon = () => (
 
 const RequestIcon = () => (
   <Image
-    source={{ uri: imgSvg1 }}
+    source={imgSvg1}
     style={{ width: 23.1, height: 23.1 }}
     resizeMode="contain"
   />
@@ -70,7 +75,7 @@ const RequestIcon = () => (
 
 const PaymentsIcon = () => (
   <Image
-    source={{ uri: imgSvg2 }}
+    source={imgSvg2}
     style={{ width: 21, height: 21 }}
     resizeMode="contain"
   />
@@ -78,7 +83,7 @@ const PaymentsIcon = () => (
 
 const ProfileIcon = () => (
   <Image
-    source={{ uri: imgSvg3 }}
+    source={imgSvg3}
     style={{ width: 21, height: 21 }}
     resizeMode="contain"
   />
@@ -150,28 +155,19 @@ export default function ServiceDetailReview({ navigation }: ServiceDetailReviewP
           <View style={styles.stepContainer}>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
-                <Image
-                  source={{ uri: imgBackground }}
-                  style={styles.stepIcon}
-                />
+                <TickIcon size={21} />
               </View>
               <Text style={styles.stepLabel}>Service Details</Text>
             </View>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
-                <Image
-                  source={{ uri: imgBackground }}
-                  style={styles.stepIcon}
-                />
+                <TickIcon size={21} />
               </View>
               <Text style={styles.stepLabel}>Schedule</Text>
             </View>
             <View style={styles.stepItem}>
               <View style={styles.stepCircle}>
-                <Image
-                  source={{ uri: imgBackground1 }}
-                  style={styles.stepIcon}
-                />
+                <TickIcon size={21} />
               </View>
               <Text style={styles.stepLabel}>Payment</Text>
             </View>
@@ -188,13 +184,13 @@ export default function ServiceDetailReview({ navigation }: ServiceDetailReviewP
             <View style={styles.progressFill} />
             <View style={styles.progressFillPartial}>
               <Image
-                source={{ uri: imgBackground2 }}
+                source={imgBackground2}
                 style={styles.progressPartialIcon}
               />
             </View>
             <View style={styles.progressFillEnd}>
               <Image
-                source={{ uri: imgBackground3 }}
+                source={imgBackground3}
                 style={styles.progressEndIcon}
               />
             </View>
@@ -243,17 +239,17 @@ export default function ServiceDetailReview({ navigation }: ServiceDetailReviewP
                 <Text style={styles.photosTitle}>Photos</Text>
                 <View style={styles.photosContainer}>
                   <Image
-                    source={{ uri: imgRectangle4 }}
+                    source={carWheelPhoto}
                     style={styles.photoItem}
                     resizeMode="cover"
                   />
                   <Image
-                    source={{ uri: imgRectangle5 }}
+                    source={carInteriorPhoto}
                     style={styles.photoItem}
                     resizeMode="cover"
                   />
                   <Image
-                    source={{ uri: imgRectangle6 }}
+                    source={carExteriorPhoto}
                     style={styles.photoItem}
                     resizeMode="cover"
                   />
@@ -317,7 +313,7 @@ export default function ServiceDetailReview({ navigation }: ServiceDetailReviewP
               {/* Success Icon */}
               <View style={styles.successIconContainer}>
                 <Image
-                  source={{ uri: imgCheckmark }}
+                  source={imgCheckmark}
                   style={styles.successIcon}
                   resizeMode="contain"
                 />

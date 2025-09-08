@@ -488,21 +488,23 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    paddingVertical: 4.5,
-    paddingHorizontal: 37,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 12.75,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 34,
+    minHeight: 40,
   },
   activeTab: {
     backgroundColor: '#ffffff',
   },
   tabText: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '500',
     color: '#1f232c',
     lineHeight: 18,
+    textAlign: 'center',
+    flexShrink: 1,
   },
   activeTabText: {
     color: '#1f232c',
