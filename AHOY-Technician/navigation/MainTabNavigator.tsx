@@ -5,6 +5,7 @@ import { Svg, Path } from 'react-native-svg';
 
 // Import screens
 import Tasks from '../screens/Tasks';
+import CurrentJob from '../screens/CurrentJob';
 import ProfileScreen from '../screens/profile';
 
 const Tab = createBottomTabNavigator();
@@ -94,10 +95,6 @@ const ProfileIcon = ({ color = '#c7cad1', size = 21 }: { color?: string; size?: 
 );
 
 // Placeholder components for missing screens
-const CurrentScreen = () => (
-  <Tasks />
-);
-
 const HistoryScreen = () => (
   <Tasks />
 );
@@ -143,7 +140,7 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen
         name="Current"
-        component={CurrentScreen}
+        component={CurrentJob}
         options={{
           tabBarIcon: ({ color, size }) => <CurrentIcon color={color} size={size} />,
         }}

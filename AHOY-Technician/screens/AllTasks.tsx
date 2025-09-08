@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
+import TaskDetails from './TaskDetails';
 
 const { width, height } = Dimensions.get('window');
 
@@ -228,41 +229,63 @@ interface AllTasksProps {
 }
 
 export default function AllTasks({ navigation }: AllTasksProps) {
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const tasks = [
     {
-      id: 1,
+      id: "TASK-001",
       title: "Deep Office Cleaning",
       price: "120 $",
-      location: "123 Business Center, Floor 3, Conference…",
+      location: "123 Business Center, Floor 3, Conference Room A",
       time: "Today, 10:00 AM • 2 hours",
       customer: "Sarah Johnson",
       distance: "0.8 km",
+      description: "Complete deep cleaning of office space including conference rooms and workstations.",
+      paymentMethod: "Cash",
+      amount: "$120",
     },
     {
-      id: 2,
+      id: "TASK-002",
       title: "HVAC Maintenance",
       price: "95 $",
       location: "456 Corporate Plaza, Building B, Floor 2",
       time: "Today, 2:00 PM • 1.5 hours",
       customer: "Mike Chen",
       distance: "1.2 km",
+      description: "Routine maintenance check and filter replacement for HVAC system.",
+      paymentMethod: "Cash",
+      amount: "$95",
     },
     {
-      id: 3,
+      id: "TASK-003",
       title: "Emergency Plumbing Repair",
       price: "55 $",
       location: "789 Downtown Tower, Floor 15, Restroom B",
       time: "Today, 2:00 PM • 1.5 hours",
       customer: "Lisa Rodriguez",
       distance: "2.1 km",
+      description: "Emergency repair of leaking pipes in restroom facilities.",
+      paymentMethod: "Cash",
+      amount: "$55",
     },
   ];
+
+  const handleViewDetails = (task) => {
+    setSelectedTask(task);
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    setSelectedTask(null);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffddab" />
       
-      Status Bar
+      {/* Status Bar */}
       {/* <View style={styles.statusBar}> */}
         {/* <Text style={styles.timeText}>9:41</Text> */}
         {/* <View style={styles.statusIcons}> */}
@@ -346,7 +369,10 @@ export default function AllTasks({ navigation }: AllTasksProps) {
               </View>
               
               <View style={styles.taskActions}>
-                <TouchableOpacity style={styles.detailsButton}>
+                <TouchableOpacity 
+                  style={styles.detailsButton}
+                  onPress={() => handleViewDetails(task)}
+                >
                   <Text style={styles.detailsButtonText}>View Details</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.startButton}>
@@ -378,6 +404,12 @@ export default function AllTasks({ navigation }: AllTasksProps) {
           <Text style={styles.tabText}>Profile</Text>
         </TouchableOpacity>
       </View>
+
+      <TaskDetails
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        task={selectedTask}
+      />
     </SafeAreaView>
   );
 }

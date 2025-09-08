@@ -7,6 +7,9 @@ import SignIn from './screens/signin';
 import SignUp from './screens/signup';
 import Tasks from './screens/Tasks';
 import AllTasks from './screens/AllTasks';
+import TaskDetails from './screens/TaskDetails';
+import CompleteJobDetails from './screens/CompleteJobDetails';
+
 import MainTabNavigator from './navigation/MainTabNavigator';
 
 const Stack = createStackNavigator();
@@ -15,7 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="SignIn"
+        initialRouteName="MainTabs"
         screenOptions={{
           headerShown: false,
         }}
@@ -27,6 +30,22 @@ export default function App() {
         {/* Tasks Screen */}
         <Stack.Screen name="Tasks" component={Tasks} />
         <Stack.Screen name="AllTasks" component={AllTasks} />
+        <Stack.Screen 
+          name="TaskDetails" 
+          component={TaskDetails} 
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen 
+          name="CompleteJobDetails" 
+          component={CompleteJobDetails} 
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
         
         {/* Main App with Tab Navigation */}
         <Stack.Screen name="MainTabs" component={MainTabNavigator} />

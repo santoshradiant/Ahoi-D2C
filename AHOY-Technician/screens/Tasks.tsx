@@ -92,7 +92,6 @@ export default function Tasks({ navigation }: TasksProps) {
         </View>
       </View>
 
-
     </SafeAreaView>
   );
 }
