@@ -262,15 +262,15 @@ export default function AllTasks({ navigation }: AllTasksProps) {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffddab" />
       
-      {/* Status Bar */}
-      <View style={styles.statusBar}>
-        <Text style={styles.timeText}>9:41</Text>
-        <View style={styles.statusIcons}>
+      Status Bar
+      {/* <View style={styles.statusBar}> */}
+        {/* <Text style={styles.timeText}>9:41</Text> */}
+        {/* <View style={styles.statusIcons}> */}
+          {/* <View style={styles.statusIcon} />
           <View style={styles.statusIcon} />
-          <View style={styles.statusIcon} />
-          <View style={styles.statusIcon} />
-        </View>
-      </View>
+          <View style={styles.statusIcon} /> */}
+        {/* </View> */}
+      {/* </View> */}
 
       {/* Header Section */}
       <View style={styles.header}>
