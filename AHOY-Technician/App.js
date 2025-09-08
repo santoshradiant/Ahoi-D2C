@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from './screens/signin';
 import SignUp from './screens/signup';
+import Tasks from './screens/Tasks';
+import AllTasks from './screens/AllTasks';
 import MainTabNavigator from './navigation/MainTabNavigator';
 
 const Stack = createStackNavigator();
@@ -21,6 +23,10 @@ export default function App() {
         {/* Authentication Screens */}
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        
+        {/* Tasks Screen */}
+        <Stack.Screen name="Tasks" component={Tasks} />
+        <Stack.Screen name="AllTasks" component={AllTasks} />
         
         {/* Main App with Tab Navigation */}
         <Stack.Screen name="MainTabs" component={MainTabNavigator} />
