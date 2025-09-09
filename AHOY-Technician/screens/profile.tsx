@@ -13,7 +13,6 @@ import {
   Dimensions,
   Modal,
   Animated,
-  TextInput,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
 
@@ -164,15 +163,7 @@ interface ProfileProps {
 export default function Profile({ navigation }: ProfileProps) {
   const [emailUpdates, setEmailUpdates] = React.useState(true);
   const [showSignOutModal, setShowSignOutModal] = React.useState(false);
-  const [showPersonalInfoModal, setShowPersonalInfoModal] = React.useState(false);
   const slideAnim = React.useRef(new Animated.Value(0)).current;
-  const personalInfoSlideAnim = React.useRef(new Animated.Value(0)).current;
-  
-  // Form state
-  const [fullName, setFullName] = React.useState('Yousri Bouhamed');
-  const [email, setEmail] = React.useState('yousri@bellman.media');
-  const [phoneNumber, setPhoneNumber] = React.useState('+1 (555) 123-4567');
-  const [defaultLocation, setDefaultLocation] = React.useState('Office Building, Floor 3');
 
   // Bottom tab navigation is now handled by the tab navigator
 
@@ -205,39 +196,12 @@ export default function Profile({ navigation }: ProfileProps) {
   };
 
   const handlePersonalInfoPress = () => {
-    setShowPersonalInfoModal(true);
-    Animated.timing(personalInfoSlideAnim, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+    if (navigation) {
+      navigation.navigate('EditProfile');
+    }
   };
 
-  const handleDismissPersonalInfoModal = () => {
-    Animated.timing(personalInfoSlideAnim, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => {
-      setShowPersonalInfoModal(false);
-    });
-  };
 
-  const handleSavePersonalInfo = () => {
-    // Handle save logic here
-    console.log('Saving personal info:', {
-      fullName,
-      email,
-      phoneNumber,
-      defaultLocation,
-    });
-    handleDismissPersonalInfoModal();
-  };
-
-  const handleUpdatePassword = () => {
-    // Handle password update logic here
-    console.log('Update password pressed');
-  };
 
   const handleNavigation = (screenName: string) => {
     if (navigation) {
@@ -415,135 +379,7 @@ export default function Profile({ navigation }: ProfileProps) {
         </View>
       </Modal>
 
-      {/* Personal Information Modal */}
-      <Modal
-        visible={showPersonalInfoModal}
-        transparent={true}
-        animationType="none"
-        onRequestClose={handleDismissPersonalInfoModal}
-      >
-        <View style={styles.modalOverlay}>
-          <TouchableOpacity 
-            style={styles.modalBackground} 
-            activeOpacity={1} 
-            onPress={handleDismissPersonalInfoModal}
-          />
-          <Animated.View
-            style={[
-              styles.personalInfoModalContainer,
-              {
-                transform: [
-                  {
-                    translateY: personalInfoSlideAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [600, 0],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            {/* Drag Handle */}
-            <View style={styles.modalHeader}>
-              <View style={styles.dragHandle} />
-            </View>
 
-            {/* Modal Content */}
-            <ScrollView style={styles.personalInfoModalContent} showsVerticalScrollIndicator={false}>
-              {/* Title and Description */}
-              <View style={styles.personalInfoHeader}>
-                <Text style={styles.personalInfoTitle}>Edit Profile</Text>
-                <Text style={styles.personalInfoDescription}>
-                  Update your personal information and account details.
-                </Text>
-              </View>
-
-              {/* Form Fields */}
-              <View style={styles.formContainer}>
-                {/* Full Name */}
-                <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>Full Name</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    value={fullName}
-                    onChangeText={setFullName}
-                    placeholder="Enter your full name"
-                    placeholderTextColor="#858c9b"
-                  />
-                </View>
-
-                {/* Email */}
-                <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>Email</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder="Enter your email"
-                    placeholderTextColor="#858c9b"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                  />
-                </View>
-
-                {/* Phone Number */}
-                <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>Phone Number</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    value={phoneNumber}
-                    onChangeText={setPhoneNumber}
-                    placeholder="Enter your phone number"
-                    placeholderTextColor="#858c9b"
-                    keyboardType="phone-pad"
-                  />
-                </View>
-
-                {/* Default Location */}
-                <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>Default Location</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    value={defaultLocation}
-                    onChangeText={setDefaultLocation}
-                    placeholder="Enter your default location"
-                    placeholderTextColor="#858c9b"
-                  />
-                </View>
-
-                {/* Update Password Button */}
-                <TouchableOpacity 
-                  style={styles.updatePasswordButton}
-                  onPress={handleUpdatePassword}
-                >
-                  <Text style={styles.updatePasswordText}>Update Password</Text>
-                </TouchableOpacity>
-
-                {/* Action Buttons */}
-                <View style={styles.personalInfoButtonContainer}>
-                  <TouchableOpacity 
-                    style={styles.cancelButton} 
-                    onPress={handleDismissPersonalInfoModal}
-                  >
-                    <Text style={styles.cancelButtonText}>Cancel</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={styles.saveButton} 
-                    onPress={handleSavePersonalInfo}
-                  >
-                    <Text style={styles.saveButtonText}>Save Changes</Text>
-                  </TouchableOpacity>
-                </View>
-
-                {/* Home Indicator */}
-                <View style={styles.homeIndicatorContainer}>
-                  <View style={styles.homeIndicator} />
-                </View>
-              </View>
-            </ScrollView>
-          </Animated.View>
-        </View>
-      </Modal>
     </SafeAreaView>
   );
 }
@@ -808,126 +644,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f232c',
     borderRadius: 100,
   },
-  // Personal Info Modal Styles
-  personalInfoModalContainer: {
-    backgroundColor: '#ffffff',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    shadowColor: '#171717',
-    shadowOffset: {
-      width: 0,
-      height: -16,
-    },
-    shadowOpacity: 0.12,
-    shadowRadius: 20.1,
-    elevation: 16,
-    maxWidth: 401,
-    alignSelf: 'center',
-    width: '100%',
-    maxHeight: '80%',
-  },
-  personalInfoModalContent: {
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-  },
-  personalInfoHeader: {
-    gap: 8,
-    marginBottom: 24,
-  },
-  personalInfoTitle: {
-    fontSize: 21,
-    fontWeight: '400',
-    color: '#1f232c',
-    lineHeight: 31.5,
-    fontFamily: Platform.OS === 'ios' ? 'Ghapter' : 'System',
-  },
-  personalInfoDescription: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#717182',
-    lineHeight: 18,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
-  formContainer: {
-    gap: 13,
-  },
-  fieldContainer: {
-    gap: 7,
-  },
-  fieldLabel: {
-    fontSize: 15,
-    fontWeight: '400',
-    color: '#1f232c',
-    lineHeight: 18,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
-  textInput: {
-    backgroundColor: '#f3f3f5',
-    borderRadius: 6.75,
-    paddingHorizontal: 11.5,
-    paddingVertical: 7.25,
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#1f232c',
-    lineHeight: 18,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-    height: 31.5,
-  },
-  updatePasswordButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 6,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  updatePasswordText: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#1f232c',
-    lineHeight: 18,
-    textDecorationLine: 'underline',
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
-  personalInfoButtonContainer: {
-    flexDirection: 'row',
-    gap: 7,
-    marginTop: 8,
-  },
-  cancelButton: {
-    flex: 1,
-    backgroundColor: '#f4f4f4',
-    borderRadius: 6,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cancelButtonText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#1f232c',
-    lineHeight: 14.3,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
-  saveButton: {
-    flex: 1,
-    backgroundColor: '#0b8494',
-    borderRadius: 6,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  saveButtonText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#ffffff',
-    lineHeight: 14.3,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
+
 });

@@ -9,6 +9,10 @@ import Tasks from './screens/Tasks';
 import AllTasks from './screens/AllTasks';
 import TaskDetails from './screens/TaskDetails';
 import CompleteJobDetails from './screens/CompleteJobDetails';
+import History from './screens/History';
+import HistoryDetails from './screens/HistoryDetails';
+import TermsAndPrivacy from './screens/TermsAndPrivacy';
+import EditProfile from './screens/EditProfile';
 
 import MainTabNavigator from './navigation/MainTabNavigator';
 
@@ -41,6 +45,30 @@ export default function App() {
         <Stack.Screen 
           name="CompleteJobDetails" 
           component={CompleteJobDetails} 
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        
+        {/* History Screen */}
+        <Stack.Screen name="History" component={History} />
+        <Stack.Screen 
+          name="HistoryDetails" 
+          component={HistoryDetails} 
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        
+        {/* Terms and Privacy Screen */}
+        <Stack.Screen name="Terms" component={TermsAndPrivacy} />
+        
+        {/* Edit Profile Screen */}
+        <Stack.Screen 
+          name="EditProfile" 
+          component={EditProfile} 
           options={{
             presentation: 'modal',
             headerShown: false,

@@ -10,12 +10,17 @@ export const images = {
   arrowRight: require('./arrow-right.svg'),
   
   // Job related icons
-  mapPin: require('./icon.png'), // placeholder
+  mapPin: require('./location-icon.svg'),
   calendar: require('./calendar-icon.svg'),
-  user: require('./avatar.png'),
+  user: require('./user-icon.svg'),
+  userAvatar: require('./avatar.png'),
   navigation: require('./icon.png'), // placeholder
   phone: require('./icon.png'), // placeholder
   play: require('./icon.png'), // placeholder
+  
+  // Status icons
+  check: require('./check-icon.svg'),
+  camera: require('./camera-icon-small.svg'),
   
   // Tab icons
   tasks: require('./request-icon.svg'),

@@ -5,58 +5,84 @@
 ### Screens
 - `screens/signin.tsx` - Sign in screen
 - `screens/signup.tsx` - Sign up screen  
-- `screens/profile.tsx` - Profile screen
-- `screens/Tasks.tsx` - Main tasks screen with empty state and "View All Tasks" button
-- `screens/AllTasks.tsx` - **NEW** - Complete tasks list screen converted from Figma design
+- `screens/Tasks.tsx` - Main tasks screen
+- `screens/AllTasks.tsx` - All tasks list
+- `screens/TaskDetails.tsx` - Task details modal
+- `screens/CompleteJobDetails.tsx` - Complete job details modal
+- `screens/History.tsx` - Job history screen with list of completed jobs
+- `screens/HistoryDetails.tsx` - **NEW** - Job history details modal
+- `screens/profile.tsx` - User profile screen
 
 ### Navigation
-- `navigation/MainTabNavigator.tsx` - Main tab navigation component
-- `App.js` - Root navigation with stack navigator including new AllTasks screen
+- `navigation/MainTabNavigator.tsx` - Main tab navigation
+- `App.js` - Root navigation with stack navigator
 
 ### Components
-- `components/TickIcon.tsx` - Tick icon component
+- `components/HistoryIcons.tsx` - Icon components for history screen
+- `components/Icons.tsx` - General icon components
+- `components/TickIcon.tsx` - Tick/check icon component
 
 ### Assets
-- `assets/avatar.png` - User avatar image
-- `assets/` - Contains various icons and images (SVG and PNG files)
+- `assets/imageAssets.js` - **UPDATED** - Local image assets mapping
+- `assets/history-icons.js` - History screen specific icons
+- Various SVG and PNG assets for icons and images
 
 ## Recent Changes
 
-### AllTasks.tsx Features
-- **Header Section**: Status bar, user greeting, and alert button
-- **Active Task Section**: Shows current active task with book-check icon
-- **Assigned Tasks Section**: 
-  - Badge showing "3 Pending" tasks
-  - List of 3 sample tasks with:
-    - Task title and price badge
-    - Location with map pin icon
-    - Time/duration with calendar icon
-    - Customer name with user icon
-    - Distance information
-    - "View Details" and "Start Task" action buttons
-- **Bottom Tab Bar**: 4 tabs (Tasks, Current, History, Profile) with proper active state
-- **Responsive Design**: Works on both iOS and Android
-- **Local Assets**: Uses local SVG icons instead of remote Figma links
+### HistoryDetails Component
+- Created `screens/HistoryDetails.tsx` based on Figma design
+- Modal component that displays detailed job information
+- Includes job summary with ID, customer, completion date, photos, and location
+- Matches Figma design exactly with proper styling and layout
+
+### History Screen Updates
+- **UPDATED** `screens/History.tsx` to include modal functionality
+- Added state management for modal visibility and selected job data
+- Updated JobCard component to handle view button press
+- Integrated HistoryDetails modal component
 
 ### Navigation Updates
-- Added AllTasks screen to App.js navigation stack
-- Added "View All Tasks" button in Tasks.tsx that navigates to AllTasks screen
+- **UPDATED** `App.js` to include HistoryDetails in navigation stack
+- Added as modal presentation with no header
 
-### Styling
-- Matches Figma design exactly including:
-  - Colors (#ffddab header, #0b8494 primary, #28a138 price badges)
-  - Typography (SF Pro Display font family)
-  - Spacing and layout
-  - Border radius and shadows
-  - Icon sizes and positioning
+### Asset Management
+- **UPDATED** `assets/imageAssets.js` with new local icons
+- Created local SVG icons to replace Figma localhost URLs:
+  - `check-icon.svg` - Green checkmark for completed status
+  - `user-icon.svg` - User/customer icon
+  - `location-icon.svg` - Location/map pin icon
+  - `camera-icon-small.svg` - Camera icon for photo count
+
+## Features Implemented
+
+### History Details Modal
+- ✅ Modal presentation matching Figma design
+- ✅ Drag handle for modal interaction
+- ✅ Job title and description display
+- ✅ Job summary with all required fields
+- ✅ Close button functionality
+- ✅ Proper styling and responsive layout
+- ✅ Integration with History screen
+
+### Navigation Integration
+- ✅ Modal navigation setup in App.js
+- ✅ Proper modal presentation options
+- ✅ State management for modal visibility
+
+### Asset Optimization
+- ✅ Local asset storage instead of Figma localhost URLs
+- ✅ SVG icons for scalability and performance
+- ✅ Proper asset organization and mapping
 
 ## Usage
-1. Start from Tasks.tsx (empty state)
-2. Tap "View All Tasks" button
-3. Navigate to AllTasks.tsx to see the complete task list interface
 
-## Dependencies
-- React Native
-- React Navigation (Stack & Tab)
-- React Native SVG
-- React Native Safe Area Context
+When a user clicks the "View" button on any job card in the History screen, the HistoryDetails modal will open displaying:
+- Job title and description
+- Job ID
+- Customer name
+- Completion date and time
+- Number of uploaded photos
+- Job location
+- Close button to dismiss modal
+
+The modal is responsive and works on both iOS and Android platforms.
