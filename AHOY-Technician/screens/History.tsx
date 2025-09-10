@@ -172,14 +172,14 @@ const History: React.FC = () => {
       {/* Header Section */}
       <View style={styles.header}>
         {/* Status Bar */}
-        <View style={styles.statusBar}>
+        {/* <View style={styles.statusBar}>
           <Text style={styles.timeText}>9:41</Text>
           <View style={styles.statusIcons}>
             <Image source={statusBarIcons.signal} style={styles.statusIcon} />
             <Image source={statusBarIcons.wifi} style={styles.statusIcon} />
             <Image source={statusBarIcons.battery} style={styles.statusIcon} />
           </View>
-        </View>
+        </View> */}
 
         {/* Main Header */}
         <View style={styles.mainHeader}>

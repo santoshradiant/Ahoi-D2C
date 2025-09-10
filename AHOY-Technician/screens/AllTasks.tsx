@@ -298,9 +298,16 @@ export default function AllTasks({ navigation }: AllTasksProps) {
       {/* Header Section */}
       <View style={styles.header}>
         <View style={styles.profileSection}>
-          <View style={styles.avatarContainer}>
+          {/* <View style={styles.avatarContainer}>
             <View style={styles.avatarPlaceholder} />
-          </View>
+          </View> */}
+           <View style={styles.avatarContainer}>
+                                  <Image
+                                    source={require('../assets/avatar.png')}
+                                    style={styles.avatar}
+                                    resizeMode="cover"
+                                  />
+                                </View>
           <View style={styles.profileInfo}>
             <Text style={styles.greeting}>Good morning, Alex!</Text>
             <Text style={styles.subtitle}>Ready to help customers today?</Text>
@@ -385,25 +392,9 @@ export default function AllTasks({ navigation }: AllTasksProps) {
         </View>
       </ScrollView>
 
-      {/* Bottom Tab Bar */}
-      <View style={styles.tabBar}>
-        <TouchableOpacity style={[styles.tabItem, styles.activeTab]}>
-          <TasksIcon />
-          <Text style={styles.activeTabText}>Tasks</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <CurrentIcon />
-          <Text style={styles.tabText}>Current</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <HistoryIcon />
-          <Text style={styles.tabText}>History</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}>
-          <ProfileIcon />
-          <Text style={styles.tabText}>Profile</Text>
-        </TouchableOpacity>
-      </View>
+
+
+
 
       <TaskDetails
         visible={modalVisible}
@@ -449,7 +440,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#ffddab',
     paddingHorizontal: 14,
-    paddingTop: 14,
+    paddingTop: 50,
     paddingBottom: 21,
     flexDirection: 'row',
     alignItems: 'center',
@@ -666,41 +657,11 @@ const styles = StyleSheet.create({
     lineHeight: 14.3,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
   },
-  tabBar: {
-    backgroundColor: '#0b8494',
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.1)',
-    height: 92,
-    alignItems: 'center',
-    justifyContent: 'space-around',
+
+   avatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 16.5,
   },
-  tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 7,
-    borderRadius: 8.75,
-    gap: 3.5,
-  },
-  activeTab: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-  },
-  tabText: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#c7cad1',
-    textAlign: 'center',
-    lineHeight: 18,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
-  activeTabText: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
-    lineHeight: 18,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
-  },
+
 });

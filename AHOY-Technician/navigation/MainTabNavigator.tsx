@@ -5,9 +5,22 @@ import { Svg, Path } from 'react-native-svg';
 
 // Import screens
 import Tasks from '../screens/Tasks';
+import AllTasks from '../screens/AllTasks';
 import CurrentJob from '../screens/CurrentJob';
 import ProfileScreen from '../screens/profile';
 import History from '../screens/History';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const TaskStack = createStackNavigator();
+
+function TasksStackNavigator() {
+  return (
+    <TaskStack.Navigator screenOptions={{ headerShown: false }}>
+      <TaskStack.Screen name="TasksHome" component={Tasks} />
+      <TaskStack.Screen name="AllTasks" component={AllTasks} />
+    </TaskStack.Navigator>
+  );
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -131,7 +144,7 @@ export default function MainTabNavigator() {
     >
       <Tab.Screen
         name="Tasks"
-        component={Tasks}
+        component={TasksStackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => <TasksIcon color={color} size={size} />,
         }}

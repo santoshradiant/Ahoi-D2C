@@ -199,7 +199,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+ backgroundColor: '#ffddab',
+ paddingTop:50
   },
   backButton: {
     padding: 4,
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundSection: {
-    backgroundColor: '#ffddab',
+  
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 24,

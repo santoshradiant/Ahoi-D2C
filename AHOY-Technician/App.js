@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from './screens/signin';
 import SignUp from './screens/signup';
 import Tasks from './screens/Tasks';
-import AllTasks from './screens/AllTasks';
+
 import TaskDetails from './screens/TaskDetails';
 import CompleteJobDetails from './screens/CompleteJobDetails';
 import History from './screens/History';
@@ -31,9 +31,7 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         
-        {/* Tasks Screen */}
-        <Stack.Screen name="Tasks" component={Tasks} />
-        <Stack.Screen name="AllTasks" component={AllTasks} />
+        {/* Tasks Screen - now handled by nested navigator */}
         <Stack.Screen 
           name="TaskDetails" 
           component={TaskDetails} 

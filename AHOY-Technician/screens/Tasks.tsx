@@ -48,22 +48,28 @@ export default function Tasks({ navigation }: TasksProps) {
       <StatusBar barStyle="dark-content" backgroundColor="#ffddab" />
       
       {/* Status Bar */}
-      <View style={styles.statusBar}>
+      {/* <View style={styles.statusBar}>
         <Text style={styles.timeText}>9:41</Text>
         <View style={styles.statusIcons}>
-          {/* Status icons would go here - using placeholder views */}
+     
           <View style={styles.statusIcon} />
           <View style={styles.statusIcon} />
           <View style={styles.statusIcon} />
         </View>
-      </View>
+      </View> */}
 
       {/* Header Section */}
       <View style={styles.header}>
         <View style={styles.profileSection}>
-          <View style={styles.avatarContainer}>
-            <View style={styles.avatarPlaceholder} />
-          </View>
+       
+            <View style={styles.avatarContainer}>
+                        <Image
+                          source={require('../assets/avatar.png')}
+                          style={styles.avatar}
+                          resizeMode="cover"
+                        />
+                      </View>
+          
           <View style={styles.profileInfo}>
             <Text style={styles.greeting}>Good morning, Alex!</Text>
             <Text style={styles.subtitle}>Ready to help customers today?</Text>
@@ -131,7 +137,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#ffddab',
     paddingHorizontal: 14,
-    paddingTop: 14,
+    paddingTop: 50,
     paddingBottom: 21,
     flexDirection: 'row',
     alignItems: 'center',
@@ -143,13 +149,7 @@ const styles = StyleSheet.create({
     gap: 8,
     flex: 1,
   },
-  avatarContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 16.5,
-    backgroundColor: '#e0b8ff',
-    overflow: 'hidden',
-  },
+ 
   avatarPlaceholder: {
     width: '100%',
     height: '100%',
@@ -222,6 +222,18 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     lineHeight: 22.4,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'System',
+  },
+    avatarContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 16.5,
+    backgroundColor: '#e0b8ff',
+    overflow: 'hidden',
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 16.5,
   },
 
 });
