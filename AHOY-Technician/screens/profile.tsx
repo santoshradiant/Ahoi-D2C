@@ -250,7 +250,7 @@ export default function Profile({ navigation }: ProfileProps) {
               
               <TouchableOpacity 
                 style={styles.menuItem}
-                onPress={() => handleNavigation('ManageAddress')}
+              
               >
                 <View style={styles.menuItemLeft}>
                   <LocationIcon />
