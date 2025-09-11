@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ArrowLeftIcon } from '../components/Icons';
 
 const TermsAndPrivacy = () => {
   const navigation = useNavigation();
@@ -23,8 +24,11 @@ const TermsAndPrivacy = () => {
       
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-          <Text style={styles.backArrow}>←</Text>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation?.goBack()}
+        >
+          <ArrowLeftIcon />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Terms & Privacy</Text>
       </View>
@@ -100,12 +104,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#ffddab',
-    height: 116,
+    height: 100,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    paddingTop: 44,
+    paddingTop: 14,
   },
   backButton: {
     position: 'absolute',
@@ -116,11 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backArrow: {
-    fontSize: 20,
-    color: '#000000',
-    fontWeight: 'bold',
-  },
+
   headerTitle: {
     fontSize: 16,
     fontWeight: '600',
